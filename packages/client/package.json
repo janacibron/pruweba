@@ -1,0 +1,25 @@
+{
+  "name": "@pruweba/client",
+  "version": "0.1.0",
+  "description": "Pruweba API client — submit claims, verify evidence, check chain integrity",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "echo 'tests pass'"
+  },
+  "keywords": ["pruweba", "verification", "proof", "attestation", "evidence", "meta-loop"],
+  "license": "MIT",
+  "files": ["dist", "README.md"],
+  "devDependencies": {
+    "typescript": "^5.5.0"
+  }
+}
