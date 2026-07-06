@@ -3,8 +3,8 @@
 
 import express from 'express';
 import cors from 'cors';
-import { createEngine } from '@pruweba/engine';
-import type { Claim, Invariant } from '@pruweba/engine';
+import { createEngine } from './engine/index.js';
+import type { Claim, Invariant } from './engine/types.js';
 
 const app = express();
 const port = process.env.PORT ? parseInt(process.env.PORT) : 3100;
