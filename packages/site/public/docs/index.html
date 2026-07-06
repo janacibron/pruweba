@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pruweba Docs — Verification Engine API Reference</title>
+<meta name="description" content="Pruweba API reference — documentation for the verification layer of MetaLoop. POST /verify, GET /chain, GET /attestations, and more.">
+<meta name="theme-color" content="#0F172A">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+/* ═══════════════════════════════════════════════════════
+   PRUWEBA DESIGN SYSTEM v1.0 — Docs Theme
+   ═══════════════════════════════════════════════════════ */
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{min-height:100vh;text-rendering:optimizeSpeed;line-height:1.6}
+
+:root{
+  --bg-primary:#0F172A;--bg-secondary:#1E293B;--bg-tertiary:#334155;
+  --bg-card:#1A2332;--border:#2D3A4A;--border-hover:#3D4F63;
+  --text-primary:#FFFFFF;--text-secondary:#CBD5E1;
+  --text-muted:#94A3B8;--text-disabled:#64748B;
+  --accent:#22D3EE;--accent-hover:#67E8F9;--secondary:#4F46E5;--secondary-hover:#6366F1;--secondary-muted:rgba(79,70,229,0.12);--accent-muted:rgba(34,211,238,0.12);
+  --success:#10B981;--success-muted:rgba(16,185,129,0.12);
+  --warning:#F59E0B;--warning-muted:rgba(245,158,11,0.12);
+  --error:#EF4444;--error-muted:rgba(239,68,68,0.12);
+  --font-sans:'Inter',system-ui,-apple-system,sans-serif;
+  --font-mono:'JetBrains Mono','Consolas','Courier New',monospace;
+  --text-sm:0.875rem;--text-base:0.95rem;--text-lg:1.1rem;
+  --text-xl:1.25rem;--text-2xl:1.5rem;
+  --space-2:0.5rem;--space-3:0.75rem;--space-4:1rem;
+  --space-6:1.5rem;--space-8:2rem;--space-12:3rem;
+  --radius-sm:4px;--radius-md:8px;--radius-lg:12px;--radius-full:9999px;
+  --shadow-md:0 4px 12px rgba(0,0,0,0.4);
+  --ease-out:cubic-bezier(0.16,1,0.3,1);
+  --duration-fast:150ms;--duration-base:250ms;
+  --sidebar-width:280px;
+}
+
+body{background:var(--bg-primary);color:var(--text-secondary);font-family:var(--font-sans);font-size:var(--text-base)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:var(--radius-sm)}
+::selection{background:var(--accent-muted);color:var(--accent)}
+
+/* ── Typography ───────────────────────────────────── */
+h1,h2,h3{font-family:var(--font-mono);color:var(--text-primary);line-height:1.3}
+h1{font-size:1.4rem;font-weight:700}
+h2{font-size:var(--text-2xl);font-weight:600;margin:var(--space-12) 0 var(--space-4);padding-bottom:var(--space-2);border-bottom:1px solid var(--border)}
+h3{font-size:var(--text-lg);font-weight:500;margin:var(--space-8) 0 var(--space-3)}
+p,li{color:var(--text-muted);font-size:var(--text-base);line-height:1.75}
+a{color:var(--accent);text-decoration:none;transition:color var(--duration-fast) var(--ease-out)}
+a:hover{color:var(--accent-hover)}
+code{font-family:var(--font-mono);font-size:0.85em;background:var(--bg-secondary);padding:0.15em 0.4em;border-radius:var(--radius-sm);color:var(--accent)}
+pre{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-6);overflow-x:auto;margin:var(--space-4) 0}
+pre code{background:none;padding:0;color:var(--text-secondary);font-size:0.85rem;line-height:1.8}
+
+/* ── Layout ───────────────────────────────────────── */
+.sidebar{
+  position:fixed;top:0;left:0;width:var(--sidebar-width);height:100vh;
+  background:var(--bg-secondary);border-right:1px solid var(--border);
+  padding:var(--space-8) var(--space-6);overflow-y:auto;z-index:50;
+}
+.sidebar-header{
+  display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-8);
+  font-family:var(--font-mono);font-weight:700;color:var(--accent);font-size:1.1rem;
+}
+.sidebar-header svg{width:28px;height:28px}
+.sidebar-section{color:var(--text-primary);font-weight:600;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.08em;margin:var(--space-6) 0 var(--space-2)}
+.sidebar a{display:block;padding:var(--space-2) var(--space-3);color:var(--text-muted);font-size:0.875rem;border-radius:var(--radius-sm);transition:all var(--duration-fast) var(--ease-out)}
+.sidebar a:hover{background:var(--accent-muted);color:var(--accent)}
+.sidebar a.active{background:var(--accent-muted);background:var(--secondary-muted);color:var(--secondary);font-weight:600}
+
+.content{margin-left:var(--sidebar-width);padding:var(--space-12) var(--space-12);max-width:820px}
+
+/* ── Badges ───────────────────────────────────────── */
+.badge{
+  display:inline-flex;align-items:center;gap:var(--space-2);
+  padding:0.15em 0.6em;border-radius:var(--radius-full);
+  font-family:var(--font-mono);font-size:0.8rem;font-weight:600;
+}
+.badge-get{background:rgba(34,211,238,0.12);color:var(--accent)}
+.badge-post{background:rgba(16,185,129,0.12);color:var(--success)}
+.badge-ok{background:var(--success-muted);color:var(--success)}
+
+/* ── Tables ───────────────────────────────────────── */
+table{width:100%;border-collapse:collapse;margin:var(--space-4) 0;font-size:0.9rem}
+th{background:var(--bg-secondary);padding:var(--space-3) var(--space-4);text-align:left;font-family:var(--font-mono);font-size:0.8rem;color:var(--accent);border-bottom:2px solid var(--border)}
+td{padding:var(--space-3) var(--space-4);color:var(--text-muted);border-bottom:1px solid var(--border)}
+tr:hover td{background:var(--bg-card)}
+
+/* ── Endpoint Card ────────────────────────────────── */
+.endpoint{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:var(--radius-lg);overflow:hidden;margin:var(--space-6) 0;
+}
+.endpoint-header{
+  padding:var(--space-4) var(--space-6);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;gap:var(--space-4);flex-wrap:wrap;
+}
+.endpoint-url{
+  font-family:var(--font-mono);font-size:0.95rem;color:var(--text-primary);
+}
+.endpoint-body{padding:var(--space-6)}
+.endpoint-body p{margin-bottom:var(--space-3)}
+.endpoint-body ul{margin:var(--space-3) 0 var(--space-3) var(--space-6)}
+.endpoint-body li{color:var(--text-muted);font-size:var(--text-sm);margin-bottom:var(--space-1)}
+
+/* ── Syntax ───────────────────────────────────────── */
+.syn-comment{color:var(--text-disabled)}.syn-keyword{color:var(--accent)}
+.syn-string{color:var(--success)}.syn-prop{color:var(--text-secondary)}
+
+/* ── Mobile ───────────────────────────────────────── */
+.sidebar-toggle{
+  display:none;position:fixed;top:var(--space-4);left:var(--space-4);z-index:60;
+  background:var(--bg-secondary);border:1px solid var(--border);border-radius:var(--radius-md);
+  color:var(--text-primary);padding:var(--space-2);cursor:pointer;
+}
+@media(max-width:900px){
+  .sidebar{
+    transform:translateX(-100%);
+    transition:transform var(--duration-base) var(--ease-out);
+    width:100%;max-width:320px;
+  }
+  .sidebar.open{transform:translateX(0)}
+  .sidebar-toggle{display:flex}
+  .content{margin-left:0;padding:var(--space-6)}
+  h2{font-size:var(--text-xl)}
+  table{font-size:0.8rem}
+  th,td{padding:var(--space-2)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:0.01ms!important;animation-iteration-count:1!important;transition-duration:0.01ms!important}
+}
+</style>
+</head>
+<body>
+
+<aside class="sidebar" role="navigation" aria-label="Documentation sidebar">
+  <div class="sidebar-header">
+    <svg viewBox="0 0 200 200" width="28" height="28" aria-hidden="true">
+      <polygon points="100,40,155,100,100,160,45,100" fill="none" stroke="#22D3EE" stroke-width="2.5"/>
+      <circle cx="100" cy="100" r="4" fill="#22D3EE"/>
+    </svg>
+    <a href="https://pruweba.com" style="color:var(--accent);text-decoration:none">PRUWEBA</a>
+  </div>
+
+  <div class="sidebar-section">Overview</div>
+  <a href="#introduction" class="active">Introduction</a>
+  <a href="#quick-start">Quick Start</a>
+  <a href="#architecture">Architecture</a>
+
+  <div class="sidebar-section">Endpoints</div>
+  <a href="#post-verify">POST /verify</a>
+  <a href="#get-attestations">GET /attestations</a>
+  <a href="#get-attestation">GET /attestations/:id</a>
+  <a href="#get-chain">GET /chain</a>
+  <a href="#get-chain-verify">GET /chain/verify</a>
+  <a href="#get-health">GET /health</a>
+  <a href="#get-invariants">GET /invariants</a>
+
+  <div class="sidebar-section">Concepts</div>
+  <a href="#claims">Claims</a>
+  <a href="#invariants">Invariants</a>
+  <a href="#proof-chain">Proof Chain</a>
+  <a href="#evidence-store">Evidence Store</a>
+</aside>
+
+<main class="content" role="main">
+
+  <h2 id="introduction">Introduction</h2>
+  <p>Pruweba is the <strong>verification layer of MetaLoop</strong> — a deterministic engine that proves claims, enforces invariants, and produces immutable evidence records stored in a hash-linked chain.</p>
+  <p>Named from the Cebuano word for "proof," Pruweba operates on a simple, non-negotiable pipeline:</p>
+  <pre><code><span class="syn-keyword">CLAIM</span> → <span class="syn-keyword">VERIFY</span> → <span class="syn-keyword">PROVE</span> → <span class="syn-keyword">ATTEST</span></code></pre>
+
+  <h2 id="quick-start">Quick Start</h2>
+  <pre><code><span class="syn-comment"># Submit your first claim</span>
+<span class="syn-keyword">curl</span> -X POST https://dev.pruweba.com/verify \
+  -H <span class="syn-string">"Content-Type: application/json"</span> \
+  -d <span class="syn-string">'{
+    "id": "my-001",
+    "subject": "system-health",
+    "predicate": "status",
+    "object": "operational",
+    "origin": "developer-console",
+    "timestamp": "2026-07-06T01:00:00Z"
+  }'</span>
+
+<span class="syn-comment"># Check the evidence chain</span>
+<span class="syn-keyword">curl</span> https://dev.pruweba.com/chain/verify
+<span class="syn-comment"># {"valid": true}</span></code></pre>
+
+  <h2 id="architecture">Architecture</h2>
+  <table>
+    <tr><th>Layer</th><th>Package</th><th>Description</th></tr>
+    <tr><td>Engine</td><td><code>@pruweba/engine</code></td><td>Core verification logic — claims, invariants, proofs, attestations, evidence store</td></tr>
+    <tr><td>API</td><td><code>@pruweba/api</code></td><td>REST server — Express endpoints for verification</td></tr>
+    <tr><td>Site</td><td><code>@pruweba/site</code></td><td>Landing page and documentation</td></tr>
+  </table>
+
+  <!-- ═══════════ ENDPOINTS ═══════════ -->
+
+  <h2 id="post-verify"><span class="badge badge-post">POST</span> /verify</h2>
+  <div class="endpoint">
+    <div class="endpoint-header">
+      <span class="badge badge-post">POST</span>
+      <span class="endpoint-url">https://dev.pruweba.com/verify</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Submit a claim through the full verification pipeline. The claim is validated, checked against invariants, cryptographically proven, and attested to the evidence store.</p>
+
+      <h3>Request Body</h3>
+      <table>
+        <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+        <tr><td><code>id</code></td><td>string</td><td>Yes</td><td>Unique claim identifier</td></tr>
+        <tr><td><code>subject</code></td><td>string</td><td>Yes</td><td>What entity the claim is about</td></tr>
+        <tr><td><code>predicate</code></td><td>string</td><td>Yes</td><td>The asserted relationship or action</td></tr>
+        <tr><td><code>object</code></td><td>any</td><td>Yes</td><td>The asserted value or target</td></tr>
+        <tr><td><code>origin</code></td><td>string</td><td>Yes</td><td>Claim source identifier</td></tr>
+        <tr><td><code>timestamp</code></td><td>string</td><td>Yes</td><td>ISO 8601 timestamp</td></tr>
+        <tr><td><code>evidence</code></td><td>object</td><td>No</td><td>Supporting data</td></tr>
+      </table>
+
+      <h3>Response <span class="badge badge-ok">201</span></h3>
+      <pre><code>{
+  <span class="syn-prop">"id"</span>: <span class="syn-string">"att-000042"</span>,
+  <span class="syn-prop">"claim"</span>: { ... },
+  <span class="syn-prop">"verdict"</span>: {
+    <span class="syn-prop">"status"</span>: <span class="syn-string">"VERIFIED"</span>,
+    <span class="syn-prop">"confidence"</span>: 0.6,
+    <span class="syn-prop">"reason"</span>: <span class="syn-string">"All invariants pass."</span>
+  },
+  <span class="syn-prop">"proof"</span>: {
+    <span class="syn-prop">"claimHash"</span>: <span class="syn-string">"6edc310f..."</span>,
+    <span class="syn-prop">"previousHash"</span>: <span class="syn-string">"000000..."</span>,
+    <span class="syn-prop">"proofHash"</span>: <span class="syn-string">"a8f9eb3c..."</span>,
+    <span class="syn-prop">"algorithm"</span>: <span class="syn-string">"sha256"</span>
+  },
+  <span class="syn-prop">"sequence"</span>: 42,
+  <span class="syn-prop">"recordedAt"</span>: <span class="syn-string">"2026-07-06T02:57:09.800Z"</span>
+}</code></pre>
+
+      <h3>Verdict States</h3>
+      <table>
+        <tr><th>Status</th><th>Meaning</th></tr>
+        <tr><td><code>VERIFIED</code></td><td>All violation invariants pass. Confidence score provided.</td></tr>
+        <tr><td><code>REJECTED</code></td><td>A violation invariant failed. Reason and counterevidence included.</td></tr>
+        <tr><td><code>UNVERIFIABLE</code></td><td>The claim could not be evaluated (e.g., missing required context).</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h2 id="get-attestations"><span class="badge badge-get">GET</span> /attestations</h2>
+  <div class="endpoint">
+    <div class="endpoint-header">
+      <span class="badge badge-get">GET</span>
+      <span class="endpoint-url">https://dev.pruweba.com/attestations</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Returns all attestations in the evidence store as a JSON array.</p>
+      <pre><code>[
+  {
+    <span class="syn-prop">"id"</span>: <span class="syn-string">"att-000001"</span>,
+    <span class="syn-prop">"claim"</span>: { ... },
+    <span class="syn-prop">"verdict"</span>: { ... },
+    <span class="syn-prop">"proof"</span>: { ... },
+    <span class="syn-prop">"sequence"</span>: 1
+  },
+  ...
+]</code></pre>
+    </div>
+  </div>
+
+  <h2 id="get-attestation"><span class="badge badge-get">GET</span> /attestations/:claimId</h2>
+  <div class="endpoint">
+    <div class="endpoint-header">
+      <span class="badge badge-get">GET</span>
+      <span class="endpoint-url">https://dev.pruweba.com/attestations/:claimId</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Returns a single attestation by its original claim <code>id</code>.</p>
+      <p><strong>404</strong> if the claim ID has no attestation.</p>
+      <pre><code><span class="syn-keyword">curl</span> https://dev.pruweba.com/attestations/claim-001</code></pre>
+    </div>
+  </div>
+
+  <h2 id="get-chain"><span class="badge badge-get">GET</span> /chain</h2>
+  <div class="endpoint">
+    <div class="endpoint-header">
+      <span class="badge badge-get">GET</span>
+      <span class="endpoint-url">https://dev.pruweba.com/chain</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Returns the full evidence chain — every record with its cryptographic hash and link to the previous record. Each record includes <code>recordHash</code> and <code>previousRecordHash</code> for chain verification.</p>
+    </div>
+  </div>
+
+  <h2 id="get-chain-verify"><span class="badge badge-get">GET</span> /chain/verify</h2>
+  <div class="endpoint">
+    <div class="endpoint-header">
+      <span class="badge badge-get">GET</span>
+      <span class="endpoint-url">https://dev.pruweba.com/chain/verify</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Verifies the integrity of the entire evidence chain by recomputing and comparing all cryptographic hashes.</p>
+      <pre><code><span class="syn-comment"># Chain intact</span>
+{ <span class="syn-prop">"valid"</span>: <span class="syn-keyword">true</span> }
+
+<span class="syn-comment"># Chain broken at record 7</span>
+{
+  <span class="syn-prop">"valid"</span>: <span class="syn-keyword">false</span>,
+  <span class="syn-prop">"brokenAt"</span>: 7,
+  <span class="syn-prop">"reason"</span>: <span class="syn-string">"Record 7 hash mismatch"</span>
+}</code></pre>
+    </div>
+  </div>
+
+  <h2 id="get-health"><span class="badge badge-get">GET</span> /health</h2>
+  <div class="endpoint">
+    <div class="endpoint-header">
+      <span class="badge badge-get">GET</span>
+      <span class="endpoint-url">https://dev.pruweba.com/health</span>
+    </div>
+    <div class="endpoint-body">
+      <pre><code>{
+  <span class="syn-prop">"status"</span>: <span class="syn-string">"ok"</span>,
+  <span class="syn-prop">"name"</span>: <span class="syn-string">"Pruweba API"</span>,
+  <span class="syn-prop">"version"</span>: <span class="syn-string">"0.1.0"</span>,
+  <span class="syn-prop">"attestations"</span>: 42,
+  <span class="syn-prop">"chainValid"</span>: <span class="syn-keyword">true</span>
+}</code></pre>
+    </div>
+  </div>
+
+  <h2 id="get-invariants"><span class="badge badge-get">GET</span> /invariants</h2>
+  <div class="endpoint">
+    <div class="endpoint-header">
+      <span class="badge badge-get">GET</span>
+      <span class="endpoint-url">https://dev.pruweba.com/invariants</span>
+    </div>
+    <div class="endpoint-body">
+      <p>Lists all registered invariants that are checked against every claim.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ CONCEPTS ═══════════ -->
+
+  <h2 id="claims">Claims</h2>
+  <p>A <strong>Claim</strong> is an assertion submitted to Pruweba by an agent, module, or external system. Claims follow a subject-predicate-object structure:</p>
+  <ul>
+    <li><strong>Subject</strong> — what entity or system the claim is about</li>
+    <li><strong>Predicate</strong> — the relationship or property being asserted</li>
+    <li><strong>Object</strong> — the value, state, or target of the assertion</li>
+  </ul>
+  <p>Every claim must have a unique <code>id</code>, a valid <code>origin</code>, and an ISO 8601 <code>timestamp</code>. Claims with future timestamps are automatically rejected.</p>
+
+  <h2 id="invariants">Invariants</h2>
+  <p>Invariants are rules that must always hold. Pruweba checks every claim against all registered invariants before producing a verdict.</p>
+  <ul>
+    <li><strong>Violation</strong> invariants — if any fails, the claim is <code>REJECTED</code></li>
+    <li><strong>Warning</strong> invariants — failures are noted but do not block verification</li>
+  </ul>
+  <p>Built-in invariants include timestamp validation (claims must not be in the future) and origin validation (claims must come from a known source).</p>
+
+  <h2 id="proof-chain">Proof Chain</h2>
+  <p>Every verified claim generates a cryptographic proof using SHA-256 that links to the previous proof. This forms an unbroken, verifiable chain of custody from the genesis block to the latest attestation.</p>
+  <p><strong>Genesis hash:</strong> <code>0000000000000000000000000000000000000000000000000000000000000000</code></p>
+  <p><strong>Proof formula:</strong> <code>SHA-256(claimHash + previousHash + timestamp)</code></p>
+
+  <h2 id="evidence-store">Evidence Store</h2>
+  <p>The Evidence Store is an append-only, hash-linked log of all attestations. Each record contains:</p>
+  <ul>
+    <li>The full attestation (claim + verdict + proof)</li>
+    <li>The hash of the previous record</li>
+    <li>The hash of the current record</li>
+  </ul>
+  <p>Tampering with any record breaks the chain — detectable immediately via <code>GET /chain/verify</code>. The store enforces write-once semantics: records cannot be modified or deleted.</p>
+
+</main>
+
+<script>
+/* ── Mobile sidebar ───────────────────────────────── */
+(function(){
+  const sidebar = document.querySelector('.sidebar');
+  const toggle = document.createElement('button');
+  toggle.className = 'sidebar-toggle';
+  toggle.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>';
+  toggle.setAttribute('aria-label','Toggle sidebar');
+  toggle.addEventListener('click',()=>{
+    sidebar.classList.toggle('open');
+    toggle.setAttribute('aria-expanded',sidebar.classList.contains('open'));
+  });
+  document.body.prepend(toggle);
+
+  // Close sidebar on link click
+  sidebar.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click',()=>{
+      sidebar.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
+    });
+  });
+})();
+
+/* ── Active sidebar link ──────────────────────────── */
+(function(){
+  const links = document.querySelectorAll('.sidebar a[href^="#"]');
+  const headings = [...document.querySelectorAll('h2[id]')];
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        links.forEach(l=>l.classList.remove('active'));
+        const active = document.querySelector(`.sidebar a[href="#${entry.target.id}"]`);
+        if(active) active.classList.add('active');
+      }
+    });
+  },{rootMargin:'-80px 0px -70% 0px'});
+  headings.forEach(h=>observer.observe(h));
+})();
+</script>
+
+</body>
+</html>

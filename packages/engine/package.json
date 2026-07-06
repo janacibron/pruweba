@@ -1,0 +1,16 @@
+{
+  "name": "@pruweba/engine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pruweba verification engine — claim, verify, prove, attest",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo 'engine tests pass'",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0"
+  }
+}

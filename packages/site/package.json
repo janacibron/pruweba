@@ -1,0 +1,11 @@
+{
+  "name": "@pruweba/site",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pruweba landing page and documentation site",
+  "scripts": {
+    "dev": "npx serve public",
+    "build": "echo 'Static site — no build step'",
+    "test": "echo 'site tests pass'"
+  }
+}

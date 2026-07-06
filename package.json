@@ -1,0 +1,22 @@
+{
+  "name": "pruweba",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pruweba — the verification layer of MetaLoop. Proof, immutable.",
+  "workspaces": [
+    "packages/engine",
+    "packages/api",
+    "packages/site"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "typecheck": "tsc --noEmit",
+    "dev:api": "npm run dev -w packages/api",
+    "dev:site": "npm run dev -w packages/site"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "@types/node": "^22.0.0"
+  }
+}
