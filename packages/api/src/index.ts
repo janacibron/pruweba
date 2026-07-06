@@ -6,6 +6,7 @@ import cors from 'cors';
 import path from 'path';
 import { createEngine } from './engine/index.js';
 import type { Claim, Invariant } from './engine/types.js';
+import { TIERS, getTier, incrementUsage, getUsage } from './tiers.js';
 
 // ─── App Setup ───────────────────────────────────────────────
 
@@ -14,6 +15,25 @@ const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3100;
 
 app.use(cors());
 app.use(express.json({ limit: '1mb' }));
+
+// ─── Usage Tracking Middleware ────────────────────────────────
+
+function trackUsage(req: Request, _res: Response, next: Function) {
+  const key = (req.headers['x-api-key'] as string) || req.ip || 'anonymous';
+  (req as any).apiKey = key;
+  (req as any).usageCount = incrementUsage(key);
+  (req as any).tier = getTier(key as string | undefined);
+  next();
+}
+
+function usageHeaders(req: Request, res: Response) {
+  const tier = (req as any).tier || TIERS.free;
+  const used = (req as any).usageCount || 0;
+  res.set('X-Tier', tier.name);
+  res.set('X-Usage-Limit', String(tier.limit));
+  res.set('X-Usage-Remaining', String(Math.max(0, tier.limit - used)));
+  res.set('X-Usage-Used', String(used));
+}
 
 // ─── Engine & Invariants ─────────────────────────────────────
 
@@ -53,6 +73,7 @@ app.get('/', (_req: Request, res: Response) => {
       { method: 'GET',  path: '/chain/verify', description: 'Verify chain integrity' },
       { method: 'GET',  path: '/health', description: 'Health check' },
       { method: 'GET',  path: '/invariants', description: 'List registered invariants' },
+      { method: 'GET',  path: '/usage', description: 'Check API usage against tier limit' },
     ],
   });
 });
@@ -69,13 +90,29 @@ app.get('/health', (_req: Request, res: Response) => {
 });
 
 /** POST /verify — Submit a claim for verification */
-app.post('/verify', async (req: Request, res: Response) => {
+app.post('/verify', trackUsage, async (req: Request, res: Response) => {
+  // Check tier limit
+  const tier = (req as any).tier || TIERS.free;
+  const used = (req as any).usageCount || 0;
+  if (used > tier.limit) {
+    usageHeaders(req, res);
+    return res.status(429).json({
+      error: 'Usage limit exceeded',
+      tier: tier.name,
+      limit: tier.limit,
+      used,
+      message: `Free tier allows ${tier.limit.toLocaleString()} verifications per 30 days. Upgrade coming soon.`,
+    });
+  }
+
   try {
     const claim = req.body as Claim;
     const attestation = await engine.verify(claim);
+    usageHeaders(req, res);
     res.status(201).json(attestation);
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Verification failed';
+    usageHeaders(req, res);
     res.status(400).json({ error: message });
   }
 });
@@ -112,6 +149,21 @@ app.get('/invariants', (_req: Request, res: Response) => {
     { id: 'INV-TIMESTAMP', description: 'Claim timestamp must not be in the future', severity: 'violation' },
     { id: 'INV-IDENTITY', description: 'Claim origin must be a known source', severity: 'warning' },
   ]);
+});
+
+/** GET /usage — Check current usage against tier limit */
+app.get('/usage', (req: Request, res: Response) => {
+  const key = (req.headers['x-api-key'] as string) || req.ip || 'anonymous';
+  const tier = getTier(key);
+  const used = getUsage(key);
+  res.json({
+    tier: tier.name,
+    limit: tier.limit,
+    used,
+    remaining: Math.max(0, tier.limit - used),
+    window: '30 days',
+    message: 'All tiers free during beta.',
+  });
 });
 
 /** GET /favicon.ico — Serve branded favicon inline (no file dependency) */
