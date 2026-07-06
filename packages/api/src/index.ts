@@ -97,16 +97,21 @@ app.get('/health', (_req, res) => {
   });
 });
 
-// ── Start ───────────────────────────────────────────
-app.listen(port, () => {
-  console.log(`◈ Pruweba API running on http://localhost:${port}`);
-  console.log(`   Endpoints:`);
-  console.log(`   POST /verify          — Submit a claim`);
-  console.log(`   GET  /attestations     — List all attestations`);
-  console.log(`   GET  /attestations/:id — Get attestation by claim ID`);
-  console.log(`   GET  /chain            — Full evidence chain`);
-  console.log(`   GET  /chain/verify     — Verify chain integrity`);
-  console.log(`   GET  /health           — Health check`);
-});
+// Vercel serverless — only listen when not on Vercel
+if (!process.env.VERCEL) {
+  app.listen(port, () => {
+    console.log(`◈ Pruweba API running on http://localhost:${port}`);
+    console.log(`   Endpoints:`);
+    console.log(`   POST /verify          — Submit a claim`);
+    console.log(`   GET  /attestations     — List all attestations`);
+    console.log(`   GET  /attestations/:id — Get attestation by claim ID`);
+    console.log(`   GET  /chain            — Full evidence chain`);
+    console.log(`   GET  /chain/verify     — Verify chain integrity`);
+    console.log(`   GET  /health           — Health check`);
+  });
+}
 
-export { app, engine };
+// Serverless export for Vercel
+export default (req: any, res: any) => {
+  app(req, res);
+};
