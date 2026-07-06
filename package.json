@@ -2,7 +2,7 @@
   "name": "pruweba",
   "version": "0.1.0",
   "private": true,
-  "description": "Pruweba — the verification layer of MetaLoop. Proof, immutable.",
+  "description": "Pruweba — the verification layer of RPES. Proof, immutable.",
   "workspaces": [
     "packages/engine",
     "packages/api",
