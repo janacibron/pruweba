@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pruweba Docs — Verification Engine API Reference</title>
-<meta name="description" content="Pruweba API reference — documentation for the verification layer of RPES. POST /verify, GET /chain, GET /attestations, and more.">
+<meta name="description" content="Pruweba API reference — deterministic verification engine. POST /verify, GET /chain, GET /attestations, and more.">
 <meta name="theme-color" content="#0F172A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -173,7 +173,7 @@ tr:hover td{background:var(--bg-card)}
 <main class="content" role="main">
 
   <h2 id="introduction">Introduction</h2>
-  <p>Pruweba is the <strong>verification layer of RPES</strong> — a deterministic engine that proves claims, enforces invariants, and produces immutable evidence records stored in a hash-linked chain.</p>
+  <p>Pruweba is a <strong>deterministic verification engine</strong> — it proves claims, enforces invariants, and produces immutable evidence records stored in a hash-linked chain.</p>
   <p>Named from the Cebuano word for "proof," Pruweba operates on a simple, non-negotiable pipeline:</p>
   <pre><code><span class="syn-keyword">CLAIM</span> → <span class="syn-keyword">VERIFY</span> → <span class="syn-keyword">PROVE</span> → <span class="syn-keyword">ATTEST</span></code></pre>
 
