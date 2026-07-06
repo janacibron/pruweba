@@ -179,7 +179,7 @@ tr:hover td{background:var(--bg-card)}
 
   <h2 id="quick-start">Quick Start</h2>
   <pre><code><span class="syn-comment"># Submit your first claim</span>
-<span class="syn-keyword">curl</span> -X POST https://dev.pruweba.com/verify \
+<span class="syn-keyword">curl</span> -X POST https://api.pruweba.com/verify \
   -H <span class="syn-string">"Content-Type: application/json"</span> \
   -d <span class="syn-string">'{
     "id": "my-001",
@@ -191,7 +191,7 @@ tr:hover td{background:var(--bg-card)}
   }'</span>
 
 <span class="syn-comment"># Check the evidence chain</span>
-<span class="syn-keyword">curl</span> https://dev.pruweba.com/chain/verify
+<span class="syn-keyword">curl</span> https://api.pruweba.com/chain/verify
 <span class="syn-comment"># {"valid": true}</span></code></pre>
 
   <h2 id="architecture">Architecture</h2>
@@ -208,7 +208,7 @@ tr:hover td{background:var(--bg-card)}
   <div class="endpoint">
     <div class="endpoint-header">
       <span class="badge badge-post">POST</span>
-      <span class="endpoint-url">https://dev.pruweba.com/verify</span>
+      <span class="endpoint-url">https://api.pruweba.com/verify</span>
     </div>
     <div class="endpoint-body">
       <p>Submit a claim through the full verification pipeline. The claim is validated, checked against invariants, cryptographically proven, and attested to the evidence store.</p>
@@ -258,7 +258,7 @@ tr:hover td{background:var(--bg-card)}
   <div class="endpoint">
     <div class="endpoint-header">
       <span class="badge badge-get">GET</span>
-      <span class="endpoint-url">https://dev.pruweba.com/attestations</span>
+      <span class="endpoint-url">https://api.pruweba.com/attestations</span>
     </div>
     <div class="endpoint-body">
       <p>Returns all attestations in the evidence store as a JSON array.</p>
@@ -279,12 +279,12 @@ tr:hover td{background:var(--bg-card)}
   <div class="endpoint">
     <div class="endpoint-header">
       <span class="badge badge-get">GET</span>
-      <span class="endpoint-url">https://dev.pruweba.com/attestations/:claimId</span>
+      <span class="endpoint-url">https://api.pruweba.com/attestations/:claimId</span>
     </div>
     <div class="endpoint-body">
       <p>Returns a single attestation by its original claim <code>id</code>.</p>
       <p><strong>404</strong> if the claim ID has no attestation.</p>
-      <pre><code><span class="syn-keyword">curl</span> https://dev.pruweba.com/attestations/claim-001</code></pre>
+      <pre><code><span class="syn-keyword">curl</span> https://api.pruweba.com/attestations/claim-001</code></pre>
     </div>
   </div>
 
@@ -292,7 +292,7 @@ tr:hover td{background:var(--bg-card)}
   <div class="endpoint">
     <div class="endpoint-header">
       <span class="badge badge-get">GET</span>
-      <span class="endpoint-url">https://dev.pruweba.com/chain</span>
+      <span class="endpoint-url">https://api.pruweba.com/chain</span>
     </div>
     <div class="endpoint-body">
       <p>Returns the full evidence chain — every record with its cryptographic hash and link to the previous record. Each record includes <code>recordHash</code> and <code>previousRecordHash</code> for chain verification.</p>
@@ -303,7 +303,7 @@ tr:hover td{background:var(--bg-card)}
   <div class="endpoint">
     <div class="endpoint-header">
       <span class="badge badge-get">GET</span>
-      <span class="endpoint-url">https://dev.pruweba.com/chain/verify</span>
+      <span class="endpoint-url">https://api.pruweba.com/chain/verify</span>
     </div>
     <div class="endpoint-body">
       <p>Verifies the integrity of the entire evidence chain by recomputing and comparing all cryptographic hashes.</p>
@@ -323,7 +323,7 @@ tr:hover td{background:var(--bg-card)}
   <div class="endpoint">
     <div class="endpoint-header">
       <span class="badge badge-get">GET</span>
-      <span class="endpoint-url">https://dev.pruweba.com/health</span>
+      <span class="endpoint-url">https://api.pruweba.com/health</span>
     </div>
     <div class="endpoint-body">
       <pre><code>{
@@ -340,7 +340,7 @@ tr:hover td{background:var(--bg-card)}
   <div class="endpoint">
     <div class="endpoint-header">
       <span class="badge badge-get">GET</span>
-      <span class="endpoint-url">https://dev.pruweba.com/invariants</span>
+      <span class="endpoint-url">https://api.pruweba.com/invariants</span>
     </div>
     <div class="endpoint-body">
       <p>Lists all registered invariants that are checked against every claim.</p>
