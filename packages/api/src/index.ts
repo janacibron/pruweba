@@ -3,6 +3,7 @@
 
 import express, { Request, Response } from 'express';
 import cors from 'cors';
+import path from 'path';
 import { createEngine } from './engine/index.js';
 import type { Claim, Invariant } from './engine/types.js';
 
@@ -111,6 +112,16 @@ app.get('/invariants', (_req: Request, res: Response) => {
     { id: 'INV-TIMESTAMP', description: 'Claim timestamp must not be in the future', severity: 'violation' },
     { id: 'INV-IDENTITY', description: 'Claim origin must be a known source', severity: 'warning' },
   ]);
+});
+
+/** GET /favicon.ico — Serve branded favicon inline (no file dependency) */
+app.get('/favicon.ico', (_req: Request, res: Response) => {
+  res.setHeader('Content-Type', 'image/svg+xml');
+  res.send(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="4" fill="#0F172A"/>
+  <polygon points="16,6 25,16 16,26 7,16" fill="none" stroke="#22D3EE" stroke-width="2"/>
+  <circle cx="16" cy="16" r="2" fill="#22D3EE"/>
+</svg>`);
 });
 
 /** Catch‑all 404 for undefined routes */
