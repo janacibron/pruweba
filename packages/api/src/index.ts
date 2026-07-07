@@ -101,7 +101,7 @@ app.post('/verify', trackUsage, async (req: Request, res: Response) => {
       tier: tier.name,
       limit: tier.limit,
       used,
-      message: `Free tier allows ${tier.limit.toLocaleString()} verifications per 30 days. Upgrade coming soon.`,
+      message: `Free tier allows ${tier.limit.toLocaleString()} verifications per day. Upgrade coming soon.`,
     });
   }
 
@@ -161,7 +161,7 @@ app.get('/usage', (req: Request, res: Response) => {
     limit: tier.limit,
     used,
     remaining: Math.max(0, tier.limit - used),
-    window: '30 days',
+    window: '1 day',
     message: 'All tiers free during beta.',
   });
 });

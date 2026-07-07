@@ -10,18 +10,18 @@ interface Tier {
 export const TIERS: Record<string, Tier> = {
   free: {
     name: "Free",
-    limit: 1_000,
-    windowMs: 30 * 24 * 60 * 60 * 1000, // 30 days
+    limit: 3,
+    windowMs: 24 * 60 * 60 * 1000, // 1 day
   },
   pro: {
     name: "Pro",
-    limit: 10_000,
-    windowMs: 30 * 24 * 60 * 60 * 1000,
+    limit: 100,
+    windowMs: 24 * 60 * 60 * 1000,
   },
   team: {
     name: "Team",
-    limit: 100_000,
-    windowMs: 30 * 24 * 60 * 60 * 1000,
+    limit: 1_000,
+    windowMs: 24 * 60 * 60 * 1000,
   },
 };
 
@@ -45,5 +45,5 @@ export function getUsage(key: string): number {
   return usage.get(key) ?? 0;
 }
 
-// Periodic cleanup every hour
-setInterval(() => usage.clear(), 60 * 60 * 1000);
+// Periodic cleanup every 24 hours
+setInterval(() => usage.clear(), 24 * 60 * 60 * 1000);
