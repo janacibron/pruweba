@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/api/portal/sign", "destination": "/api/portal" },
+    { "source": "/portal", "destination": "/portal.html" },
+    { "source": "/login", "destination": "/login.html" }
+  ]
+}

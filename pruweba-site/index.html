@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pruweba — E-commerce ops, automated.</title>
+<meta name="description" content="I help DTC brands stop losing money to inventory sync errors, manual order processing, and supplier overcharges. Proprietary AI systems, workflow automation, and technical SEO — built by one senior engineer." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --graphite:#14171B;
+    --graphite-panel:#1B1F25;
+    --steel:#2A2F37;
+    --steel-line:#363C46;
+    --manifest:#EDEFF1;
+    --manifest-dim:#9BA3AE;
+    --amber:#F2A93B;
+    --cyan:#4FD1C5;
+    --red:#E2574C;
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--graphite);
+    color:var(--manifest);
+    font-family:'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  }
+  .font-mono-brand{font-family:'IBM Plex Mono', ui-monospace, monospace;}
+  .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:.7rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--manifest-dim);
+  }
+  .panel{
+    background:var(--graphite-panel);
+    border:1px solid var(--steel-line);
+    border-radius:.5rem;
+  }
+  .btn-primary{
+    background:var(--amber);
+    color:var(--graphite);
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+  }
+  .btn-primary:hover{background:#ffbf5c;}
+  .btn-ghost{
+    border:1px solid var(--steel-line);
+    color:var(--manifest);
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .btn-ghost:hover{border-color:var(--cyan); color:var(--cyan);}
+  .ledger-line{white-space:pre; opacity:0; animation:fadeIn .4s ease forwards;}
+  @keyframes fadeIn{to{opacity:1;}}
+  @media (prefers-reduced-motion: reduce){
+    .ledger-line{animation:none; opacity:1;}
+  }
+  .divider{border-top:1px solid var(--steel-line);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--cyan); outline-offset:2px;}
+</style>
+</head>
+<body class="antialiased">
+
+<!-- NAV -->
+<header class="sticky top-0 z-40 backdrop-blur bg-[var(--graphite)]/85 divider">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="#top" class="font-mono-brand font-semibold tracking-tight text-[var(--manifest)]">
+      PRUWEBA <span class="text-[var(--manifest-dim)] font-normal">/ opsstack</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 tag">
+      <a href="#pipeline" class="hover:text-[var(--cyan)]">Problem</a>
+      <a href="#tiers" class="hover:text-[var(--cyan)]">Tiers</a>
+      <a href="#pillars" class="hover:text-[var(--cyan)]">Framework</a>
+      <a href="#faq" class="hover:text-[var(--cyan)]">FAQ</a>
+    </nav>
+    <a href="#audit" class="btn-primary text-xs px-4 py-2 rounded">Book Free Ops Audit</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section id="top" class="max-w-6xl mx-auto px-6 pt-16 pb-20 md:pt-24 md:pb-28 grid md:grid-cols-2 gap-12 items-center">
+  <div>
+    <p class="tag mb-4">Solo engineer · Fixed-price · 90-day ROI</p>
+    <h1 class="font-mono-brand font-semibold text-4xl md:text-5xl leading-[1.1] tracking-tight">
+      E-commerce ops,<br/>automated.
+    </h1>
+    <p class="mt-6 text-lg text-[var(--manifest-dim)] max-w-md">
+      I help DTC brands stop losing money to inventory sync errors, manual order processing, and supplier overcharges. I deploy proprietary AI systems, workflow automation, and technical SEO — built by one senior engineer.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-4">
+      <a href="#audit" class="btn-primary px-6 py-3 rounded text-sm">Book Free Ops Audit</a>
+      <a href="#pillars" class="btn-ghost px-6 py-3 rounded text-sm">See the framework</a>
+    </div>
+  </div>
+
+  <!-- SIGNATURE ELEMENT: live ledger panel, styled after the product's real CLI output -->
+  <div class="panel p-5 font-mono-brand text-[13px] leading-relaxed overflow-hidden">
+    <div class="flex items-center justify-between mb-3">
+      <span class="tag">reconciliation_run.log</span>
+      <span class="tag text-[var(--cyan)]">● live pipeline</span>
+    </div>
+    <div class="space-y-1">
+      <div class="ledger-line" style="animation-delay:.1s">[INIT] Loading 31 Pillars... <span class="text-[var(--cyan)]">ALL 31 ACTIVE</span></div>
+      <div class="ledger-line" style="animation-delay:.5s">[INGEST] XI FederationEngine parsing 4 invoices, 3 BOLs</div>
+      <div class="ledger-line" style="animation-delay:.9s">[VALIDATE] XXI SchemaValidator checking SCAC + zip codes</div>
+      <div class="ledger-line text-[var(--amber)]" style="animation-delay:1.3s">[ALERT] XXIX DeadLetterHandler: invoice_004.txt missing SCAC → human review</div>
+      <div class="ledger-line" style="animation-delay:1.7s">[MATCH] XXII IdempotencyGuard: duplicate BOL_REF dropped</div>
+      <div class="ledger-line text-[var(--red)]" style="animation-delay:2.1s">[FLAG] XXV ExplainabilityEngine: carrier overcharging by $1,336.00 vs contract rate</div>
+      <div class="ledger-line" style="animation-delay:2.5s">[AUDIT] XIV LineageNotary hashing decisions to ledger</div>
+      <div class="ledger-line text-[var(--cyan)]" style="animation-delay:2.9s">[GOVERNANCE] APPROVE_DEPLOY · risk: low</div>
+    </div>
+    <p class="tag mt-4 pt-3 divider">representative output from a live run — see Proof of Work</p>
+  </div>
+</section>
+
+<!-- PITCH -->
+<section class="max-w-6xl mx-auto px-6 py-16 divider">
+  <div class="grid md:grid-cols-[1fr_1.4fr] gap-10">
+    <h2 class="font-mono-brand text-2xl md:text-3xl font-semibold leading-tight">
+      Most consultants give you a slide deck. I give you proprietary technology.
+    </h2>
+    <div>
+      <p class="text-[var(--manifest-dim)] mb-6">When you hire Pruweba, every system I deploy is governed by a 31-pillar engineering framework that ensures it is:</p>
+      <ul class="grid sm:grid-cols-2 gap-4">
+        <li class="panel p-4"><span class="text-[var(--cyan)] font-mono-brand text-sm">Explainable</span><p class="text-sm text-[var(--manifest-dim)] mt-1">You know why every decision was made.</p></li>
+        <li class="panel p-4"><span class="text-[var(--cyan)] font-mono-brand text-sm">Auditable</span><p class="text-sm text-[var(--manifest-dim)] mt-1">Every action is tracked.</p></li>
+        <li class="panel p-4"><span class="text-[var(--cyan)] font-mono-brand text-sm">Anti-corrupt</span><p class="text-sm text-[var(--manifest-dim)] mt-1">No one can game the system.</p></li>
+        <li class="panel p-4"><span class="text-[var(--cyan)] font-mono-brand text-sm">Resilient</span><p class="text-sm text-[var(--manifest-dim)] mt-1">Failures don't cascade.</p></li>
+      </ul>
+      <p class="mt-6 text-[var(--manifest)]">I don't just consult. I deploy systems that run your operations — so you can focus on your business.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM PIPELINE -->
+<section id="pipeline" class="max-w-6xl mx-auto px-6 py-16 divider">
+  <p class="tag mb-3">[PIPELINE]</p>
+  <h2 class="font-mono-brand text-2xl md:text-3xl font-semibold mb-10">Where the money leaks — top to bottom.</h2>
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="panel p-6">
+      <span class="tag text-[var(--amber)]">Top</span>
+      <h3 class="font-mono-brand text-lg mt-2 mb-2">AI Visibility</h3>
+      <p class="text-sm text-[var(--manifest-dim)]">Shoppers are asking AI where to buy. If your schema and entities aren't readable, you're invisible before the sale ever starts.</p>
+    </div>
+    <div class="panel p-6">
+      <span class="tag text-[var(--cyan)]">Middle</span>
+      <h3 class="font-mono-brand text-lg mt-2 mb-2">Inventory &amp; Order Routing</h3>
+      <p class="text-sm text-[var(--manifest-dim)]">Manual Shopify ↔ 3PL sync errors: duplicate orders, lost shipments, stock that's wrong the moment it's checked.</p>
+    </div>
+    <div class="panel p-6">
+      <span class="tag text-[var(--red)]">Bottom</span>
+      <h3 class="font-mono-brand text-lg mt-2 mb-2">Returns &amp; Reconciliation</h3>
+      <p class="text-sm text-[var(--manifest-dim)]">Supplier and carrier overcharges that sit unnoticed in invoices no one has time to line-by-line audit.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIERS -->
+<section id="tiers" class="max-w-6xl mx-auto px-6 py-16 divider">
+  <p class="tag mb-3">[TIERS]</p>
+  <h2 class="font-mono-brand text-2xl md:text-3xl font-semibold mb-2">Three ways I work with logistics &amp; DTC teams.</h2>
+  <p class="text-[var(--manifest-dim)] mb-10">Every service is fixed-price, scoped, and built to pay for itself within 90 days.</p>
+
+  <div class="grid md:grid-cols-3 gap-6">
+    <div class="panel p-6 flex flex-col">
+      <span class="tag">Tier 1 · Governed by XI · XXI · XXV</span>
+      <h3 class="font-mono-brand text-xl mt-3 mb-2">Visibility Engineering</h3>
+      <p class="text-sm text-[var(--manifest-dim)] flex-1">Your shippers are asking AI where to ship. I use RankFixer to make your site explainable to Google and AI crawlers alike — not just optimized, legible.</p>
+      <p class="font-mono-brand text-2xl text-[var(--amber)] mt-6">$1,500<span class="text-sm text-[var(--manifest-dim)]">/mo</span></p>
+      <a href="#audit" class="btn-ghost text-center text-sm px-4 py-2 rounded mt-4">Start With an Audit</a>
+    </div>
+    <div class="panel p-6 flex flex-col border-[var(--cyan)]/40">
+      <span class="tag">Tier 2 · Governed by XIV · XXII · XXIII · XXIX</span>
+      <h3 class="font-mono-brand text-xl mt-3 mb-2">Automation Engineering</h3>
+      <p class="text-sm text-[var(--manifest-dim)] flex-1">Your team is copy-pasting between Excel, email, and your WMS. I build the tool that replaces all three — every action tracked, every failure caught.</p>
+      <p class="font-mono-brand text-2xl text-[var(--amber)] mt-6">$4,500–$8,000<span class="text-sm text-[var(--manifest-dim)]">/project</span></p>
+      <a href="#audit" class="btn-ghost text-center text-sm px-4 py-2 rounded mt-4">Book a Scoping Call</a>
+    </div>
+    <div class="panel p-6 flex flex-col">
+      <span class="tag">Tier 3 · Governed by XII · XV · XVIII · XXIV · XXVI</span>
+      <h3 class="font-mono-brand text-xl mt-3 mb-2">Predictive Reconciliation</h3>
+      <p class="text-sm text-[var(--manifest-dim)] flex-1">See problems before they cost you. I build predictive, auditable models on your own data — you stop reacting and start preventing.</p>
+      <p class="font-mono-brand text-2xl text-[var(--amber)] mt-6">$6,000–$12,000<span class="text-sm text-[var(--manifest-dim)]">/project</span></p>
+      <a href="#audit" class="btn-ghost text-center text-sm px-4 py-2 rounded mt-4">Discuss Your Data</a>
+    </div>
+  </div>
+</section>
+
+<!-- COMPETITIVE MATRIX -->
+<section class="max-w-6xl mx-auto px-6 py-16 divider">
+  <p class="tag mb-3">[POSITIONING]</p>
+  <h2 class="font-mono-brand text-2xl md:text-3xl font-semibold mb-8">Why teams choose Pruweba.</h2>
+  <div class="overflow-x-auto panel">
+    <table class="w-full text-sm min-w-[640px]">
+      <thead>
+        <tr class="divider">
+          <th class="text-left p-4 tag">Capability</th>
+          <th class="text-left p-4 tag">McKinsey</th>
+          <th class="text-left p-4 tag">Accenture</th>
+          <th class="text-left p-4 tag">Freelancers</th>
+          <th class="text-left p-4 tag">SAP</th>
+          <th class="text-left p-4 tag text-[var(--amber)]">Pruweba</th>
+        </tr>
+      </thead>
+      <tbody class="text-[var(--manifest-dim)]">
+        <tr class="divider"><td class="p-4 text-[var(--manifest)]">Ships working code</td><td class="p-4">Slides</td><td class="p-4">Junior devs</td><td class="p-4">Varies</td><td class="p-4">Configured</td><td class="p-4 text-[var(--cyan)]">Yes, direct</td></tr>
+        <tr class="divider"><td class="p-4 text-[var(--manifest)]">Explainable decisions</td><td class="p-4">—</td><td class="p-4">Partial</td><td class="p-4">—</td><td class="p-4">Partial</td><td class="p-4 text-[var(--cyan)]">31-pillar governed</td></tr>
+        <tr class="divider"><td class="p-4 text-[var(--manifest)]">Fixed-price, scoped</td><td class="p-4">Retainer</td><td class="p-4">Retainer</td><td class="p-4">Hourly</td><td class="p-4">License</td><td class="p-4 text-[var(--cyan)]">Yes</td></tr>
+        <tr><td class="p-4 text-[var(--manifest)]">Single point of contact</td><td class="p-4">Team</td><td class="p-4">Team</td><td class="p-4">Yes</td><td class="p-4">Team</td><td class="p-4 text-[var(--cyan)]">Yes — me</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="tag mt-4">The only firm with 31-pillar governance.</p>
+</section>
+
+<!-- 31 PILLARS -->
+<section id="pillars" class="max-w-6xl mx-auto px-6 py-16 divider">
+  <p class="tag mb-3">[FRAMEWORK]</p>
+  <h2 class="font-mono-brand text-2xl md:text-3xl font-semibold mb-2">The 31-Pillar Operations Architecture.</h2>
+  <p class="text-[var(--manifest-dim)] max-w-2xl mb-10">This is not a marketing claim — it's how I engineer. Every system I deploy is governed by these pillars so they never fail silently, never get gamed, and always explain themselves.</p>
+  <div id="pillar-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+  <div class="panel mt-8 p-4 text-center tag">Anti-corruption cannot be turned off by any user or pillar.</div>
+</section>
+
+<!-- PROOF OF WORK TEASER -->
+<section class="max-w-6xl mx-auto px-6 py-16 divider">
+  <p class="tag mb-3">[PROOF OF WORK]</p>
+  <h2 class="font-mono-brand text-2xl md:text-3xl font-semibold mb-8">I ship first, talk later.</h2>
+  <div class="grid md:grid-cols-2 gap-6">
+    <a href="https://rankfixer.co" class="panel p-6 block hover:border-[var(--cyan)]/60 transition">
+      <span class="tag">Used for Tier 1</span>
+      <h3 class="font-mono-brand text-lg mt-2 mb-2">RankFixer →</h3>
+      <p class="text-sm text-[var(--manifest-dim)]">Live SaaS auditing AI-search visibility (GEO). Proves I ship and rank real web apps — not just slides about them.</p>
+    </a>
+    <div class="panel p-6">
+      <span class="tag">Used for Tier 3</span>
+      <h3 class="font-mono-brand text-lg mt-2 mb-2">Pillar Native</h3>
+      <p class="text-sm text-[var(--manifest-dim)]">Enterprise AI governance framework — Federation, Ethics Constraints, Lineage tracking. The foundation of the 31-pillar system above.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="max-w-6xl mx-auto px-6 py-16 divider">
+  <p class="tag mb-3">[FAQ]</p>
+  <h2 class="font-mono-brand text-2xl md:text-3xl font-semibold mb-8">Before you book.</h2>
+  <div class="space-y-3 max-w-3xl" id="faq-list"></div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="audit" class="max-w-6xl mx-auto px-6 py-20 text-center">
+  <h2 class="font-mono-brand text-3xl md:text-4xl font-semibold mb-4">Get your free ops audit.</h2>
+  <p class="text-[var(--manifest-dim)] max-w-xl mx-auto mb-8">15 minutes. I'll diagnose your biggest bottleneck — SEO, manual workflow, or data blind spots. No pitch, just diagnosis.</p>
+  <a href="#" id="calendly-cta" class="btn-primary inline-block px-8 py-4 rounded text-sm">Book My 15-Min Audit →</a>
+  <p class="tag mt-6">No spam · No sales team · Fixed-price scope · 90-day ROI guarantee</p>
+  <!-- Replace #calendly-cta href or embed inline widget here, e.g.:
+       <div class="calendly-inline-widget" data-url="https://calendly.com/your-handle/15min"></div>
+       <script src="https://assets.calendly.com/assets/external/widget.js"></script> -->
+</section>
+
+<footer class="divider">
+  <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between items-center gap-3 tag">
+    <span>Jan — Solo Founder, Pruweba. Built with Python, shipped from a D:\ drive.</span>
+    <span>No agency overhead. No junior team. Just execution.</span>
+  </div>
+</footer>
+
+<!-- PRESENCE-AWARE HYBRID CHAT WIDGET -->
+<button id="chat-launcher" aria-expanded="false" aria-controls="chat-panel"
+  class="fixed bottom-5 right-5 z-50 btn-primary rounded-full w-14 h-14 flex items-center justify-center shadow-lg text-lg font-mono-brand">
+  <span id="chat-launcher-icon">?</span>
+</button>
+
+<div id="chat-panel" role="dialog" aria-modal="true" aria-labelledby="chat-panel-title"
+  class="fixed bottom-24 right-5 z-50 w-[min(380px,calc(100vw-2.5rem))] h-[min(520px,calc(100vh-8rem))] panel flex flex-col overflow-hidden hidden shadow-2xl">
+  <div class="flex items-center justify-between px-4 py-3 divider">
+    <div>
+      <p id="chat-panel-title" class="font-mono-brand text-sm">Framework Q&amp;A</p>
+      <p id="chat-status" class="tag">Online · local time</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <button id="chat-mode-toggle" aria-label="Toggle online/offline" class="tag text-[var(--cyan)] hover:text-[var(--manifest)]">Auto</button>
+      <button id="chat-close" aria-label="Close chat" class="text-[var(--manifest-dim)] hover:text-[var(--manifest)] text-lg leading-none px-2">×</button>
+    </div>
+  </div>
+
+  <div id="chat-body" class="flex-1 overflow-y-auto px-4 py-3 space-y-3 text-sm"></div>
+
+  <form id="chat-form" class="flex items-center gap-2 p-3 divider">
+    <input id="chat-input" type="text" autocomplete="off" maxlength="2000"
+      placeholder="e.g. What does Idempotency Guard do?"
+      class="flex-1 bg-[var(--steel)] border border-[var(--steel-line)] rounded px-3 py-2 text-sm text-[var(--manifest)] placeholder:text-[var(--manifest-dim)] focus:outline-none focus:border-[var(--cyan)]" />
+    <button type="submit" class="btn-primary rounded px-3 py-2 text-xs">Send</button>
+  </form>
+</div>
+
+<script>
+(function () {
+  const CHAT_ENDPOINT = '/api/chat';
+  const TRACK_ENDPOINT = '/api/track';
+  const launcher = document.getElementById('chat-launcher');
+  const launcherIcon = document.getElementById('chat-launcher-icon');
+  const panel = document.getElementById('chat-panel');
+  const closeBtn = document.getElementById('chat-close');
+  const bodyEl = document.getElementById('chat-body');
+  const form = document.getElementById('chat-form');
+  const input = document.getElementById('chat-input');
+  const modeToggle = document.getElementById('chat-mode-toggle');
+  const statusEl = document.getElementById('chat-status');
+
+  let history = [];
+  let opened = false;
+  let mode = 'auto'; // auto | online | offline
+  let online = false;
+
+  function nowIso() { return new Date().toISOString(); }
+
+  function isOnlineHours() {
+    const h = new Date().getHours();
+    return h >= 9 && h < 18;
+  }
+
+  function detectMode() {
+    if (mode === 'online') online = true;
+    else if (mode === 'offline') online = false;
+    else online = isOnlineHours();
+  }
+
+  function setStatus() {
+    const label = online ? 'Online · local time' : 'Offline · lead capture';
+    statusEl.textContent = label;
+    modeToggle.textContent = mode === 'auto' ? 'Auto' : mode === 'online' ? 'Forced Online' : 'Forced Offline';
+    launcherIcon.textContent = online ? '?' : '✉';
+  }
+
+  function renderOnline() {
+    bodyEl.innerHTML = '';
+    const intro = document.createElement('div');
+    intro.className = 'text-left';
+    intro.innerHTML = `<span class="inline-block bg-[var(--steel)] border border-[var(--steel-line)] rounded px-3 py-2 max-w-[85%]">Hi — I can walk you through any of the 31 pillars, or how the framework fits your ops. What do you want to know?</span>`;
+    bodyEl.appendChild(intro);
+    form.classList.remove('hidden');
+    input.placeholder = "e.g. What does Idempotency Guard do?";
+  }
+
+  function renderOffline() {
+    bodyEl.innerHTML = `
+      <div class="space-y-3">
+        <p class="text-sm text-[var(--manifest-dim)]">I'm currently offline. Leave your email and your operational bottleneck, and I'll get back to you within 24 hours.</p>
+        <form id="offline-lead" class="space-y-2">
+          <input name="email" type="email" required placeholder="you@company.com" class="w-full bg-[var(--steel)] border border-[var(--steel-line)] rounded px-3 py-2 text-sm text-[var(--manifest)] placeholder:text-[var(--manifest-dim)] focus:outline-none focus:border-[var(--cyan)]" />
+          <textarea name="bottleneck" required rows="3" placeholder="Operational bottleneck..." class="w-full bg-[var(--steel)] border border-[var(--steel-line)] rounded px-3 py-2 text-sm text-[var(--manifest)] placeholder:text-[var(--manifest-dim)] focus:outline-none focus:border-[var(--cyan)]"></textarea>
+          <button type="submit" class="btn-primary rounded px-3 py-2 text-xs">Send</button>
+        </form>
+      </div>`;
+    const leadForm = document.getElementById('offline-lead');
+    leadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData(leadForm);
+      const payload = {
+        event: 'lead_capture',
+        target: 'offline_chat_form',
+        page: '/',
+        domain: 'pruweba.com',
+        timestamp: nowIso(),
+        email: String(fd.get('email') || '').trim(),
+        bottleneck: String(fd.get('bottleneck') || '').trim(),
+      };
+      try { await sendTrack(payload); } catch {}
+      const confirmRow = document.createElement('div');
+      confirmRow.className = 'text-left';
+      confirmRow.innerHTML = `<span class="inline-block bg-[var(--steel)] border border-[var(--steel-line)] rounded px-3 py-2 max-w-[85%]">Received. I'll reply within 24 hours.</span>`;
+      bodyEl.appendChild(confirmRow);
+      leadForm.reset();
+      bodyEl.scrollTop = bodyEl.scrollHeight;
+    });
+    form.classList.add('hidden');
+    input.placeholder = 'Offline mode — use the form above.';
+  }
+
+  function addMessage(role, text) {
+    const row = document.createElement('div');
+    row.className = role === 'user' ? 'text-right' : 'text-left';
+    const bubble = document.createElement('span');
+    bubble.className = role === 'user'
+      ? 'inline-block bg-[var(--amber)] text-[var(--graphite)] rounded px-3 py-2 max-w-[85%] text-left'
+      : 'inline-block bg-[var(--steel)] border border-[var(--steel-line)] rounded px-3 py-2 max-w-[85%]';
+    bubble.textContent = text;
+    row.appendChild(bubble);
+    bodyEl.appendChild(row);
+    bodyEl.scrollTop = bodyEl.scrollHeight;
+  }
+
+  function togglePanel(show) {
+    opened = show;
+    panel.classList.toggle('hidden', !show);
+    launcher.setAttribute('aria-expanded', String(show));
+    launcherIcon.textContent = show ? (online ? '×' : '✉') : (online ? '?' : '✉');
+    if (show) {
+      detectMode();
+      setStatus();
+      if (online) renderOnline(); else renderOffline();
+      input.focus();
+    }
+  }
+
+  launcher.addEventListener('click', () => togglePanel(!opened));
+  closeBtn.addEventListener('click', () => togglePanel(false));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && opened) togglePanel(false); });
+
+  modeToggle.addEventListener('click', async () => {
+    mode = mode === 'auto' ? 'online' : mode === 'online' ? 'offline' : 'auto';
+    detectMode();
+    setStatus();
+    if (opened) {
+      if (online) renderOnline(); else renderOffline();
+    }
+    await sendTrack({ event: 'chat_mode_toggle', target: mode, page: '/', domain: 'pruweba.com' });
+  });
+
+  async function sendTrack(payload) {
+    const send = (p) => new Promise((resolve) => {
+      const done = () => resolve();
+      if (navigator.sendBeacon) { const ok = navigator.sendBeacon(TRACK_ENDPOINT, new Blob([JSON.stringify(p)], { type: 'application/json' })); if (ok) return done(); }
+      fetch(TRACK_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(p), keepalive: true }).then(() => done()).catch(done);
+    });
+    await send(payload);
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    addMessage('user', text);
+    history.push({ role: 'user', content: text });
+    await sendTrack({ event: 'chat_message', target: 'user_message', page: '/', domain: 'pruweba.com' });
+
+    if (!online) {
+      addMessage('assistant', "I'm offline right now. Use the form above to leave your email and bottleneck.");
+      return;
+    }
+
+    const pending = document.createElement('div');
+    pending.className = 'text-left tag';
+    pending.textContent = 'thinking…';
+    bodyEl.appendChild(pending);
+    bodyEl.scrollTop = bodyEl.scrollHeight;
+
+    try {
+      const res = await fetch(CHAT_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: text, history: history.slice(-8) }),
+      });
+      const data = await res.json();
+      pending.remove();
+      if (!res.ok) throw new Error(data.error || 'Request failed');
+      addMessage('assistant', data.reply);
+      history.push({ role: 'assistant', content: data.reply });
+      await sendTrack({ event: 'chat_message', target: 'assistant_reply', page: '/', domain: 'pruweba.com' });
+    } catch (err) {
+      pending.remove();
+      addMessage('assistant', "Something went wrong on my end — try again, or just book the audit call and ask me directly.");
+      await sendTrack({ event: 'chat_error', target: err.message, page: '/', domain: 'pruweba.com' });
+    }
+  });
+})();
+</script>
+
+<script>
+  const PILLARS = [
+    ["XI","Federation","Connects siloed systems — WMS, TMS, Excel, email — into one unified data layer."],
+    ["XII","Entropy Detector","Finds invisible bottlenecks costing you money before they become crises."],
+    ["XIII","Ethics Constraint","Ensures every automation and AI model is fair, transparent, and can't be manipulated."],
+    ["XIV","Lineage Notary","Every shipment, decision, and cost change has a traceable history."],
+    ["XV","Capacity Planner","Optimizes truck, warehouse, and freezer utilization in real time."],
+    ["XVI","Adversarial Forge","Stress-tests operations against worst-case scenarios — strikes, fuel spikes, weather."],
+    ["XVII","Graceful Degrader","When things fail, operations degrade gracefully, not catastrophically."],
+    ["XVIII","Knowledge Distiller","Extracts patterns from historical data so mistakes stop repeating."],
+    ["XIX","Temporal Sandbox","Simulates operational changes before they're deployed in the real world."],
+    ["XX","Sovereign Root","You retain ultimate control over every system deployed. I build it. You own it."],
+    ["XXI","Schema Validator","Ensures every BOL, invoice, and customs document is valid before it causes delays."],
+    ["XXII","Idempotency Guard","No duplicate shipments. No double-billed freight. No operational waste."],
+    ["XXIII","Provenance Tracker","Full audit trail across every shipment, decision, and cost change."],
+    ["XXIV","Cost Estimator","Predicts freight costs, equipment failures, and lane profitability."],
+    ["XXV","Explainability Engine","You'll never ask 'why did that happen?' again — every outcome is explained."],
+    ["XXVI","Bias Detector","No hidden biases in pricing, routing, or carrier selection."],
+    ["XXVII","Redundancy Planner","Backup carriers, backup lanes, backup systems — built-in resilience."],
+    ["XXVIII","Version Migrator","Ops systems evolve without breaking. No downtime. No data loss."],
+    ["XXIX","Dead Letter Handler","Lost shipments and broken processes are captured and fixed, not dropped."],
+    ["XXX","Universal Exporter","Reports, dashboards, and data exports in whatever format you need."],
+    ["XXXI","Anti-Corruption Engine","Once built, a system can't be gamed, bypassed, or corrupted — by anyone."],
+  ];
+  const grid = document.getElementById('pillar-grid');
+  PILLARS.forEach(([num, name, desc]) => {
+    const el = document.createElement('div');
+    el.className = 'panel p-4';
+    el.innerHTML = `<span class="font-mono-brand text-[var(--cyan)] text-sm">${num}</span>
+      <h4 class="font-mono-brand text-sm mt-1 mb-1">${name}</h4>
+      <p class="text-xs text-[var(--manifest-dim)]">${desc}</p>`;
+    grid.appendChild(el);
+  });
+
+  const FAQS = [
+    ["How does execution actually work?", "You get scoped deliverables with fixed timelines — I build directly against your WMS/TMS/Shopify data, not a generic template."],
+    ["Does this integrate with our WMS?", "Yes — integration is scoped up front during the audit call before any contract is signed."],
+    ["What about false positives in the audit flags?", "Every flag routes through the Explainability Engine (Pillar XXV) with the specific reason and source data — nothing is a black-box alert."],
+    ["Who owns the system once it's built?", "You do. Pillar XX (Sovereign Root) means you retain full control and access — I build it, you own it outright."],
+    ["What's the typical project timeline?", "Tier 2/3 projects typically run 3–6 weeks from scoping call to deployed system, depending on data access and integration complexity."],
+    ["What if we need changes after launch?", "Pillar XXVIII (Version Migrator) is built for this — systems evolve without downtime or data loss as your ops change."],
+  ];
+  const faqList = document.getElementById('faq-list');
+  FAQS.forEach(([q, a], i) => {
+    const details = document.createElement('details');
+    details.className = 'panel p-4';
+    details.innerHTML = `<summary class="font-mono-brand text-sm cursor-pointer">${q}</summary>
+      <p class="text-sm text-[var(--manifest-dim)] mt-3">${a}</p>`;
+    faqList.appendChild(details);
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RankFixer — AI Visibility Scan</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root {
+    --graphite: #0b0d10;
+    --panel: #141820;
+    --steel: #232a35;
+    --manifest: #e7eaed;
+    --dim: #8b939f;
+    --amber: #f2a93b;
+    --cyan: #4fd1c5;
+    --red: #e2574c;
+  }
+  body { background: var(--graphite); color: var(--manifest); font-family: ui-sans-serif, system-ui, sans-serif; }
+  .mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+  .panel { background: var(--panel); border: 1px solid var(--steel); border-radius: .5rem; }
+  .btn-primary { background: var(--amber); color: var(--graphite); font-weight: 600; }
+  .btn-primary:hover { filter: brightness(1.05); }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+</style>
+</head>
+<body class="antialiased">
+  <div class="max-w-3xl mx-auto px-6 py-16">
+    <header class="mb-10">
+      <p class="mono text-xs tracking-widest text-[var(--dim)] mb-3">RANKFIXER / SCAN</p>
+      <h1 class="mono text-3xl md:text-4xl font-semibold leading-tight">
+        Find out if AI models are ignoring your website.
+      </h1>
+      <p class="mt-4 text-[var(--dim)] max-w-xl">
+        Free AI-visibility audit. We check structured data, crawler access, and citability signals in seconds — no account required.
+      </p>
+    </header>
+
+    <section class="panel p-6">
+      <label class="block text-sm font-medium mb-2">Domain to scan</label>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <input id="domainInput" type="text" placeholder="example.com" class="flex-1 bg-[var(--graphite)] border border-[var(--steel)] rounded px-3 py-2 text-sm outline-none focus:border-[var(--cyan)]" />
+        <button id="runScan" class="btn-primary mono text-sm px-5 py-2 rounded" data-track="run_free_scan_click">Run Free Scan</button>
+      </div>
+      <p id="status" class="mono text-xs text-[var(--dim)] mt-3">Ready.</p>
+    </section>
+
+    <section id="results" class="mt-8 hidden">
+      <div class="panel p-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="mono text-xs text-[var(--dim)]">Visibility score</p>
+            <p class="mono text-4xl font-semibold mt-1"><span id="score">0</span><span class="text-lg text-[var(--dim)]">/100</span></p>
+          </div>
+          <div class="text-right">
+            <p class="mono text-xs text-[var(--dim)]">Scanned</p>
+            <p id="url" class="mono text-sm mt-1 break-all"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel p-6 mt-4">
+        <p class="mono text-xs text-[var(--dim)] mb-3">Findings</p>
+        <ul id="findings" class="list-disc pl-5 space-y-2 text-sm text-[var(--dim)]"></ul>
+      </div>
+
+      <div class="panel p-6 mt-4 border-[var(--amber)]/40 bg-[var(--amber)]/5">
+        <p class="mono text-sm font-semibold text-[var(--amber)]">Your site is virtually invisible to ChatGPT.</p>
+        <p class="text-sm text-[var(--dim)] mt-2">Have our engineers fix it.</p>
+        <a href="https://pruweba.com/#audit" class="inline-block mt-4 btn-primary mono text-sm px-5 py-2 rounded">Book a Free 15-Min Ops & Visibility Audit →</a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const input = document.getElementById('domainInput');
+    const button = document.getElementById('runScan');
+    const status = document.getElementById('status');
+    const results = document.getElementById('results');
+    const scoreEl = document.getElementById('score');
+    const urlEl = document.getElementById('url');
+    const findingsEl = document.getElementById('findings');
+
+    button.addEventListener('click', async () => {
+      const domain = input.value.trim();
+      if (!domain) { status.textContent = 'Enter a domain first.'; return; }
+      status.textContent = 'Scanning...';
+      results.classList.add('hidden');
+      try {
+        const res = await fetch('http://localhost:3000/api/scan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ domain })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Scan failed');
+        scoreEl.textContent = data.score;
+        urlEl.textContent = data.url;
+        findingsEl.innerHTML = '';
+        (data.findings || []).forEach((line) => {
+          const li = document.createElement('li');
+          li.textContent = line;
+          findingsEl.appendChild(li);
+        });
+        results.classList.remove('hidden');
+        status.textContent = `Done in ${data.durationMs}ms.`;
+      } catch (err) {
+        status.textContent = `Error: ${err.message}`;
+      }
+    });
+  </script>
+  <script src="tracker.js" defer></script>
+</body>
+</html>

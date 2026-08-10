@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Sign in — Pruweba Client Portal</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root { color-scheme: dark; }
+  body { background:#08090c; font-family:'Inter',system-ui,sans-serif; }
+  .mono { font-family:'IBM Plex Mono',ui-monospace,monospace; }
+  .panel { background:#0d0f14; border:1px solid #1c202b; }
+  .glow { box-shadow:0 0 0 1px rgba(52,211,153,.12), 0 24px 70px -30px rgba(52,211,153,.45); }
+  .grid-bg {
+    background-image:linear-gradient(#11141b 1px,transparent 1px),linear-gradient(90deg,#11141b 1px,transparent 1px);
+    background-size:48px 48px; mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000 40%,transparent 100%);
+  }
+</style>
+</head>
+<body class="text-slate-200 min-h-screen grid place-items-center px-6 relative">
+
+<div class="grid-bg absolute inset-0 pointer-events-none"></div>
+
+<main class="relative w-full max-w-md">
+  <div class="flex items-center gap-3 mb-8 justify-center">
+    <div class="w-9 h-9 rounded-md bg-emerald-500/15 border border-emerald-500/30 grid place-items-center">
+      <span class="text-emerald-400 mono text-sm font-semibold">P</span>
+    </div>
+    <div>
+      <div class="text-sm font-semibold tracking-tight">Pruweba Client Portal</div>
+      <div class="mono text-[11px] text-slate-500">governed delivery · merkle-sealed proofs</div>
+    </div>
+  </div>
+
+  <section class="panel rounded-xl p-8 glow">
+    <h1 class="text-xl font-semibold tracking-tight">Sign in</h1>
+    <p class="mono text-[11px] text-slate-500 mt-1.5">Secure, passwordless access to your project dashboard.</p>
+
+    <form id="loginForm" class="mt-6 space-y-4" novalidate>
+      <div>
+        <label for="email" class="mono text-[10px] uppercase tracking-widest text-slate-500">Work Email</label>
+        <input id="email" name="email" type="email" autocomplete="email" required
+               placeholder="you@company.com" spellcheck="false"
+               class="mono mt-2 w-full bg-[#0a0c11] border border-[#1c202b] rounded-md px-3.5 py-3 text-sm
+                      placeholder:text-slate-600 focus:outline-none focus:border-emerald-500/50
+                      focus:ring-1 focus:ring-emerald-500/25 transition" />
+      </div>
+
+      <button id="submitBtn" type="submit"
+              class="mono w-full text-xs font-medium px-4 py-3 rounded-md bg-emerald-500/15 border
+                     border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/25
+                     disabled:opacity-40 disabled:cursor-not-allowed transition">
+        Send Secure Access Link
+      </button>
+    </form>
+
+    <div id="alert" class="hidden mt-4 rounded-md border px-4 py-3 mono text-xs"></div>
+
+    <p class="mono text-[11px] text-slate-500 leading-relaxed mt-6 pt-6 border-t border-[#1c202b]">
+      An access link will be emailed to you. No passwords required.
+    </p>
+  </section>
+
+  <p class="mono text-[10px] text-slate-600 text-center mt-6">
+    Access is scoped to the project assigned to your email address.
+  </p>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/auth.js"></script>
+</body>
+</html>

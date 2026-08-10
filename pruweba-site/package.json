@@ -1,0 +1,18 @@
+{
+  "name": "pruweba-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pruweba.com static site + /api/chat serverless function (Vercel).",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "vercel dev",
+    "test": "node --check portal.js && node --check chat.js && python tests/test_portal.py",
+    "test:live": "python -c \"import subprocess,sys,os;sys.exit(subprocess.call([os.path.join('.venv','Scripts','python.exe'),'tests/live_check.py']))\"",
+    "test:auth": "python -c \"import subprocess,sys,os;sys.exit(subprocess.call([os.path.join('.venv','Scripts','python.exe'),'tests/live_auth_check.py']))\""
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.112.2"
+  }
+}
