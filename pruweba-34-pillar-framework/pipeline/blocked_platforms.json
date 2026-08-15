@@ -1,0 +1,14 @@
+{
+  "workingnomads": {
+    "reason": "scrape_failed:http_405",
+    "last_checked": "2026-08-14T21:06:42.860305+00:00",
+    "next_check_days": 30,
+    "retry_count": 1
+  },
+  "virtualstaff": {
+    "reason": "scrape_failed:js_render_required",
+    "last_checked": "2026-08-14T21:06:46.380804+00:00",
+    "next_check_days": 30,
+    "retry_count": 1
+  }
+}

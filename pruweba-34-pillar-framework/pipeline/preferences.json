@@ -1,0 +1,42 @@
+{
+  "platforms": {
+    "enabled": ["onlinejobs", "weworkremotely", "remotive", "remoteok"],
+    "blocked_retry_days": 30
+  },
+  "keywords": {
+    "roles": ["automation", "python", "javascript", "react", "node", "devops", "qa", "full-stack"],
+    "case_sensitive": false,
+    "match_mode": "any"
+  },
+  "rate": {
+    "min": 0,
+    "max": 999999,
+    "currency": "USD",
+    "period": "year"
+  },
+  "job_type": {
+    "types": ["full-time", "part-time", "contract", "freelance", "internship"],
+    "case_sensitive": false
+  },
+  "timezone": {
+    "preferred": [],
+    "exclude": []
+  },
+  "experience_level": {
+    "levels": ["entry", "mid", "senior", "lead", "executive"],
+    "default": "mid"
+  },
+  "tier": {
+    "mode": "free",
+    "free": {
+      "min_age_days": 7,
+      "basic_fields_only": true
+    },
+    "premium": {
+      "fresh_jobs": true,
+      "ai_scoring": true,
+      "applications": true,
+      "tracking": true
+    }
+  }
+}

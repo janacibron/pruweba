@@ -1,0 +1,15 @@
+{
+  "name": "Pruweba",
+  "short_name": "Pruweba",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#0D0D1A",
+  "theme_color": "#22C55E",
+  "icons": [
+    {
+      "src": "https://img.icons8.com/fluency/192/000000/checkmark.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "platforms": {
+    "onlinejobs": {"url": "https://www.onlinejobs.ph/jobseekers/jobsearch", "expected_status": 200},
+    "weworkremotely": {"url": "https://weworkremotely.com/categories/remote-programming-jobs.rss", "expected_status": 200},
+    "remotive": {"url": "https://remotive.com/remote-jobs/feed", "expected_status": 200},
+    "remoteok": {"url": "https://remoteok.com/remote-jobs.json", "expected_status": 200},
+    "workingnomads": {"url": "https://www.workingnomads.com/jobsapi/home", "expected_status": 200},
+    "virtualstaff": {"url": "https://www.virtualstaff.ph/jobs", "expected_status": 200}
+  },
+  "jobs_file": "all_jobs.json",
+  "max_jobs": 2000,
+  "check_interval_minutes": 60
+}

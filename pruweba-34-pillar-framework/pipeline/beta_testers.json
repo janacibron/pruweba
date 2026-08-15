@@ -1,0 +1,20 @@
+{
+  "testers": [
+    {
+      "name": "Test User",
+      "email": "test@example.com",
+      "tier": "premium",
+      "joined_at": "2026-08-14T21:09:01.966434+00:00",
+      "status": "active"
+    }
+  ],
+  "config": {
+    "max_testers": 10,
+    "premium_duration_days": 14,
+    "feedback_fields": [
+      "bugs",
+      "usage",
+      "testimonials"
+    ]
+  }
+}
