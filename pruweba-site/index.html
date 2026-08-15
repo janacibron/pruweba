@@ -63,6 +63,169 @@
 </style>
 </head>
 <body class="antialiased">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@id": "https://pruweba.com/#organization",
+  "@type": "Organization",
+  "name": "Pruweba",
+  "url": "https://pruweba.com",
+  "description": "E-commerce operations engineering for DTC brands — fixed-price automation, visibility engineering, and predictive reconciliation.",
+  "founder": {
+    "@id": "https://pruweba.com/#person"
+  },
+  "sameAs": [
+    "https://rankfixer.co",
+    "https://github.com/janacibron",
+    "https://linkedin.com/in/jan-michael-acibron"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@id": "https://pruweba.com/#person",
+  "@type": "Person",
+  "name": "Jan Michael Acibron",
+  "url": "https://pruweba.com",
+  "jobTitle": "Founder",
+  "worksFor": {
+    "@id": "https://pruweba.com/#organization"
+  },
+  "sameAs": [
+    "https://github.com/janacibron",
+    "https://linkedin.com/in/jan-michael-acibron"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://pruweba.com/#professionalservice",
+  "name": "Pruweba",
+  "url": "https://pruweba.com",
+  "description": "E-commerce operations engineering for DTC brands — fixed-price automation, visibility engineering, and predictive reconciliation.",
+  "founder": {
+    "@id": "https://pruweba.com/#person"
+  },
+  "parentOrganization": {
+    "@id": "https://pruweba.com/#organization"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Remote",
+    "addressCountry": "US"
+  },
+  "sameAs": [
+    "https://rankfixer.co",
+    "https://github.com/janacibron",
+    "https://linkedin.com/in/jan-michael-acibron"
+  ],
+  "makesOffer": [
+    {
+      "@type": "Offer",
+      "name": "Visibility Engineering",
+      "description": "Tier 1: AI-search visibility and technical SEO/GE0 for e-commerce storefronts.",
+      "price": "1500",
+      "priceCurrency": "USD"
+    },
+    {
+      "@type": "Offer",
+      "name": "Automation Engineering",
+      "description": "Tier 2: WMS/TMS/Shopify workflow automation with validation, lineage, and anti-corruption controls.",
+      "price": "4500",
+      "priceCurrency": "USD"
+    },
+    {
+      "@type": "Offer",
+      "name": "Predictive Reconciliation",
+      "description": "Tier 3: Supplier and carrier reconciliation models built on your own operational data.",
+      "price": "6000",
+      "priceCurrency": "USD"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How does execution actually work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You get scoped deliverables with fixed timelines — I build directly against your WMS/TMS/Shopify data, not a generic template."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this integrate with our WMS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — integration is scoped up front during the audit call before any contract is signed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What about false positives in the audit flags?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every flag routes through the Explainability Engine (Pillar XXV) with the specific reason and source data — nothing is a black-box alert."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who owns the system once it's built?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You do. Pillar XX (Sovereign Root) means you retain full control and access — I build it, you own it outright."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the typical project timeline?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tier 2/3 projects typically run 3–6 weeks from scoping call to deployed system, depending on data access and integration complexity."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if we need changes after launch?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pillar XXVIII (Version Migrator) is built for this — systems evolve without downtime or data loss as your ops change."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://pruweba.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Audit",
+      "item": "https://pruweba.com/audit"
+    }
+  ]
+}
+</script>
+<!-- Supabase magic-link callback: no-ops unless the URL carries an auth payload -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/auth-callback.js"></script>
 
 <!-- NAV -->
 <header class="sticky top-0 z-40 backdrop-blur bg-[var(--graphite)]/85 divider">
@@ -71,12 +234,13 @@
       PRUWEBA <span class="text-[var(--manifest-dim)] font-normal">/ opsstack</span>
     </a>
     <nav class="hidden md:flex items-center gap-8 tag">
-      <a href="#pipeline" class="hover:text-[var(--cyan)]">Problem</a>
-      <a href="#tiers" class="hover:text-[var(--cyan)]">Tiers</a>
-      <a href="#pillars" class="hover:text-[var(--cyan)]">Framework</a>
-      <a href="#faq" class="hover:text-[var(--cyan)]">FAQ</a>
+      <a href="/#problem" class="hover:text-[var(--cyan)]">Problem</a>
+      <a href="/#tiers" class="hover:text-[var(--cyan)]">Tiers</a>
+      <a href="/#pillars" class="hover:text-[var(--cyan)]">Framework</a>
+      <a href="/#faq" class="hover:text-[var(--cyan)]">FAQ</a>
+      <a href="/about" class="hover:text-[var(--cyan)]">About</a>
     </nav>
-    <a href="#audit" class="btn-primary text-xs px-4 py-2 rounded">Book Free Ops Audit</a>
+    <a href="/audit" class="btn-primary text-xs px-4 py-2 rounded">Book Free Ops Audit</a>
   </div>
 </header>
 
@@ -85,13 +249,13 @@
   <div>
     <p class="tag mb-4">Solo engineer · Fixed-price · 90-day ROI</p>
     <h1 class="font-mono-brand font-semibold text-4xl md:text-5xl leading-[1.1] tracking-tight">
-      E-commerce ops,<br/>automated.
+      Every system I build is proven before it ships.
     </h1>
     <p class="mt-6 text-lg text-[var(--manifest-dim)] max-w-md">
-      I help DTC brands stop losing money to inventory sync errors, manual order processing, and supplier overcharges. I deploy proprietary AI systems, workflow automation, and technical SEO — built by one senior engineer.
+      I build systems that test themselves, fix themselves, and prove they work. Here's the evidence.
     </p>
     <div class="mt-8 flex flex-wrap gap-4">
-      <a href="#audit" class="btn-primary px-6 py-3 rounded text-sm">Book Free Ops Audit</a>
+      <a href="/audit" class="btn-primary px-6 py-3 rounded text-sm">Book Free Ops Audit</a>
       <a href="#pillars" class="btn-ghost px-6 py-3 rounded text-sm">See the framework</a>
     </div>
   </div>
@@ -103,7 +267,7 @@
       <span class="tag text-[var(--cyan)]">● live pipeline</span>
     </div>
     <div class="space-y-1">
-      <div class="ledger-line" style="animation-delay:.1s">[INIT] Loading 31 Pillars... <span class="text-[var(--cyan)]">ALL 31 ACTIVE</span></div>
+      <div class="ledger-line" style="animation-delay:.1s">[INIT] Loading 34 Pillars... <span class="text-[var(--cyan)]">ALL 34 ACTIVE</span></div>
       <div class="ledger-line" style="animation-delay:.5s">[INGEST] XI FederationEngine parsing 4 invoices, 3 BOLs</div>
       <div class="ledger-line" style="animation-delay:.9s">[VALIDATE] XXI SchemaValidator checking SCAC + zip codes</div>
       <div class="ledger-line text-[var(--amber)]" style="animation-delay:1.3s">[ALERT] XXIX DeadLetterHandler: invoice_004.txt missing SCAC → human review</div>
@@ -123,14 +287,33 @@
       Most consultants give you a slide deck. I give you proprietary technology.
     </h2>
     <div>
-      <p class="text-[var(--manifest-dim)] mb-6">When you hire Pruweba, every system I deploy is governed by a 31-pillar engineering framework that ensures it is:</p>
+      <p class="text-[var(--manifest-dim)] mb-6">When you hire Pruweba, every system I deploy is tested, recoverable, and traceable by design. Here's what that means:</p>
       <ul class="grid sm:grid-cols-2 gap-4">
-        <li class="panel p-4"><span class="text-[var(--cyan)] font-mono-brand text-sm">Explainable</span><p class="text-sm text-[var(--manifest-dim)] mt-1">You know why every decision was made.</p></li>
-        <li class="panel p-4"><span class="text-[var(--cyan)] font-mono-brand text-sm">Auditable</span><p class="text-sm text-[var(--manifest-dim)] mt-1">Every action is tracked.</p></li>
-        <li class="panel p-4"><span class="text-[var(--cyan)] font-mono-brand text-sm">Anti-corrupt</span><p class="text-sm text-[var(--manifest-dim)] mt-1">No one can game the system.</p></li>
-        <li class="panel p-4"><span class="text-[var(--cyan)] font-mono-brand text-sm">Resilient</span><p class="text-sm text-[var(--manifest-dim)] mt-1">Failures don't cascade.</p></li>
+        <li class="panel p-4"><span class="text-[var(--cyan)] font-mono-brand text-sm">Oracle</span><p class="text-sm text-[var(--manifest-dim)] mt-1">Every action tested before it goes live.</p></li>
+        <li class="panel p-4"><span class="text-[var(--cyan)] font-mono-brand text-sm">Recovery</span><p class="text-sm text-[var(--manifest-dim)] mt-1">If it breaks, it fixes itself.</p></li>
+        <li class="panel p-4"><span class="text-[var(--cyan)] font-mono-brand text-sm">Notary</span><p class="text-sm text-[var(--manifest-dim)] mt-1">Every change logged and traceable.</p></li>
+        <li class="panel p-4"><span class="text-[var(--cyan)] font-mono-brand text-sm">Anti-Corrupt</span><p class="text-sm text-[var(--manifest-dim)] mt-1">Once built, the rules can't be bypassed.</p></li>
       </ul>
       <p class="mt-6 text-[var(--manifest)]">I don't just consult. I deploy systems that run your operations — so you can focus on your business.</p>
+      <p class="mt-4 text-sm text-[var(--manifest-dim)]">Pruweba is a solo engineering practice, not an agency network. Every engagement is led by Jan Michael Acibron, fixed-price, and scoped to a specific ops outcome.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / ENTITY -->
+<section class="max-w-6xl mx-auto px-6 py-16 divider" id="about">
+  <p class="tag mb-3">[ABOUT]</p>
+  <h2 class="font-mono-brand text-2xl md:text-3xl font-semibold mb-8">About Pruweba.</h2>
+  <div class="grid md:grid-cols-[1fr_1fr] gap-10">
+    <div>
+      <p class="text-[var(--manifest-dim)] mb-4">Pruweba is a proof layer built on top of Jan Michael Acibron's 34-pillar operations governance framework. It turns operational controls into shipping systems: tested, recoverable, and traceable by design.</p>
+      <p class="text-[var(--manifest-dim)]">The practice is intentionally small. Fixed-price scope means no agency overhead, no junior handoffs, and no open-ended retainers.</p>
+    </div>
+    <div class="panel p-5">
+      <p class="tag mb-2">Entity definition</p>
+      <p class="text-sm text-[var(--manifest-dim)]">Brand: Pruweba. Founder: Jan Michael Acibron. Model: solo engineering practice. Service: fixed-price e-commerce ops automation, visibility, and reconciliation. Constraint: every system includes validation, lineage, and anti-corruption controls.</p>
+      <p class="tag mt-3">External identity</p>
+      <p class="text-sm text-[var(--manifest-dim)]">GitHub: rankfixer-ai. LinkedIn: jan-michael-acibron. Visibility tooling: RankFixer.</p>
     </div>
   </div>
 </section>
@@ -166,21 +349,21 @@
 
   <div class="grid md:grid-cols-3 gap-6">
     <div class="panel p-6 flex flex-col">
-      <span class="tag">Tier 1 · Governed by XI · XXI · XXV</span>
+      <span class="tag">Tier 1 · Oracle · XXI · XXV</span>
       <h3 class="font-mono-brand text-xl mt-3 mb-2">Visibility Engineering</h3>
       <p class="text-sm text-[var(--manifest-dim)] flex-1">Your shippers are asking AI where to ship. I use RankFixer to make your site explainable to Google and AI crawlers alike — not just optimized, legible.</p>
       <p class="font-mono-brand text-2xl text-[var(--amber)] mt-6">$1,500<span class="text-sm text-[var(--manifest-dim)]">/mo</span></p>
       <a href="#audit" class="btn-ghost text-center text-sm px-4 py-2 rounded mt-4">Start With an Audit</a>
     </div>
     <div class="panel p-6 flex flex-col border-[var(--cyan)]/40">
-      <span class="tag">Tier 2 · Governed by XIV · XXII · XXIII · XXIX</span>
+      <span class="tag">Tier 2 · Recovery · XIV · XXII · XXIII · XXIX</span>
       <h3 class="font-mono-brand text-xl mt-3 mb-2">Automation Engineering</h3>
       <p class="text-sm text-[var(--manifest-dim)] flex-1">Your team is copy-pasting between Excel, email, and your WMS. I build the tool that replaces all three — every action tracked, every failure caught.</p>
       <p class="font-mono-brand text-2xl text-[var(--amber)] mt-6">$4,500–$8,000<span class="text-sm text-[var(--manifest-dim)]">/project</span></p>
       <a href="#audit" class="btn-ghost text-center text-sm px-4 py-2 rounded mt-4">Book a Scoping Call</a>
     </div>
     <div class="panel p-6 flex flex-col">
-      <span class="tag">Tier 3 · Governed by XII · XV · XVIII · XXIV · XXVI</span>
+      <span class="tag">Tier 3 · Notary · XII · XV · XVIII · XXIV · XXVI</span>
       <h3 class="font-mono-brand text-xl mt-3 mb-2">Predictive Reconciliation</h3>
       <p class="text-sm text-[var(--manifest-dim)] flex-1">See problems before they cost you. I build predictive, auditable models on your own data — you stop reacting and start preventing.</p>
       <p class="font-mono-brand text-2xl text-[var(--amber)] mt-6">$6,000–$12,000<span class="text-sm text-[var(--manifest-dim)]">/project</span></p>
@@ -207,20 +390,21 @@
       </thead>
       <tbody class="text-[var(--manifest-dim)]">
         <tr class="divider"><td class="p-4 text-[var(--manifest)]">Ships working code</td><td class="p-4">Slides</td><td class="p-4">Junior devs</td><td class="p-4">Varies</td><td class="p-4">Configured</td><td class="p-4 text-[var(--cyan)]">Yes, direct</td></tr>
-        <tr class="divider"><td class="p-4 text-[var(--manifest)]">Explainable decisions</td><td class="p-4">—</td><td class="p-4">Partial</td><td class="p-4">—</td><td class="p-4">Partial</td><td class="p-4 text-[var(--cyan)]">31-pillar governed</td></tr>
+        <tr class="divider"><td class="p-4 text-[var(--manifest)]">Explainable decisions</td><td class="p-4">—</td><td class="p-4">Partial</td><td class="p-4">—</td><td class="p-4">Partial</td><td class="p-4 text-[var(--cyan)]">34-pillar system</td></tr>
         <tr class="divider"><td class="p-4 text-[var(--manifest)]">Fixed-price, scoped</td><td class="p-4">Retainer</td><td class="p-4">Retainer</td><td class="p-4">Hourly</td><td class="p-4">License</td><td class="p-4 text-[var(--cyan)]">Yes</td></tr>
         <tr><td class="p-4 text-[var(--manifest)]">Single point of contact</td><td class="p-4">Team</td><td class="p-4">Team</td><td class="p-4">Yes</td><td class="p-4">Team</td><td class="p-4 text-[var(--cyan)]">Yes — me</td></tr>
       </tbody>
     </table>
   </div>
-  <p class="tag mt-4">The only firm with 31-pillar governance.</p>
+  <p class="tag mt-4">The only system built on 34 evidence-based pillars.</p>
 </section>
 
-<!-- 31 PILLARS -->
+<!-- 34 PILLARS -->
 <section id="pillars" class="max-w-6xl mx-auto px-6 py-16 divider">
   <p class="tag mb-3">[FRAMEWORK]</p>
-  <h2 class="font-mono-brand text-2xl md:text-3xl font-semibold mb-2">The 31-Pillar Operations Architecture.</h2>
-  <p class="text-[var(--manifest-dim)] max-w-2xl mb-10">This is not a marketing claim — it's how I engineer. Every system I deploy is governed by these pillars so they never fail silently, never get gamed, and always explain themselves.</p>
+  <h2 class="font-mono-brand text-2xl md:text-3xl font-semibold mb-2">The 34-Pillar Operations Architecture.</h2>
+  <p class="text-[var(--manifest-dim)] max-w-2xl mb-4">This is not a marketing claim — it's how I engineer. Every system I deploy is tested, recoverable, and traceable by design so it never fails silently, never gets gamed, and always explains itself.</p>
+  <p class="tag mb-6">23 verified · 8 in progress · 3 intentionally off</p>
   <div id="pillar-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
   <div class="panel mt-8 p-4 text-center tag">Anti-corruption cannot be turned off by any user or pillar.</div>
 </section>
@@ -238,7 +422,7 @@
     <div class="panel p-6">
       <span class="tag">Used for Tier 3</span>
       <h3 class="font-mono-brand text-lg mt-2 mb-2">Pillar Native</h3>
-      <p class="text-sm text-[var(--manifest-dim)]">Enterprise AI governance framework — Federation, Ethics Constraints, Lineage tracking. The foundation of the 31-pillar system above.</p>
+      <p class="text-sm text-[var(--manifest-dim)]">Enterprise AI framework — Federation, Ethics Constraints, Lineage tracking. The foundation of the 34-pillar system above.</p>
     </div>
   </div>
 </section>
@@ -254,7 +438,7 @@
 <section id="audit" class="max-w-6xl mx-auto px-6 py-20 text-center">
   <h2 class="font-mono-brand text-3xl md:text-4xl font-semibold mb-4">Get your free ops audit.</h2>
   <p class="text-[var(--manifest-dim)] max-w-xl mx-auto mb-8">15 minutes. I'll diagnose your biggest bottleneck — SEO, manual workflow, or data blind spots. No pitch, just diagnosis.</p>
-  <a href="#" id="calendly-cta" class="btn-primary inline-block px-8 py-4 rounded text-sm">Book My 15-Min Audit →</a>
+  <a href="/audit" id="calendly-cta" class="btn-primary inline-block px-8 py-4 rounded text-sm">Book My 15-Min Audit →</a>
   <p class="tag mt-6">No spam · No sales team · Fixed-price scope · 90-day ROI guarantee</p>
   <!-- Replace #calendly-cta href or embed inline widget here, e.g.:
        <div class="calendly-inline-widget" data-url="https://calendly.com/your-handle/15min"></div>
@@ -264,7 +448,11 @@
 <footer class="divider">
   <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between items-center gap-3 tag">
     <span>Jan — Solo Founder, Pruweba. Built with Python, shipped from a D:\ drive.</span>
-    <span>No agency overhead. No junior team. Just execution.</span>
+    <div class="flex gap-6">
+      <a href="/" class="hover:text-[var(--cyan)]">Home</a>
+      <a href="/about" class="hover:text-[var(--cyan)]">About</a>
+      <a href="/audit" class="hover:text-[var(--cyan)]">Audit</a>
+    </div>
   </div>
 </footer>
 
@@ -340,7 +528,7 @@
     bodyEl.innerHTML = '';
     const intro = document.createElement('div');
     intro.className = 'text-left';
-    intro.innerHTML = `<span class="inline-block bg-[var(--steel)] border border-[var(--steel-line)] rounded px-3 py-2 max-w-[85%]">Hi — I can walk you through any of the 31 pillars, or how the framework fits your ops. What do you want to know?</span>`;
+    intro.innerHTML = `<span class="inline-block bg-[var(--steel)] border border-[var(--steel-line)] rounded px-3 py-2 max-w-[85%]">Hi — I can walk you through any of the 34 pillars, or how the framework fits your ops. What do you want to know?</span>`;
     bodyEl.appendChild(intro);
     form.classList.remove('hidden');
     input.placeholder = "e.g. What does Idempotency Guard do?";
@@ -494,6 +682,9 @@
     ["XXIX","Dead Letter Handler","Lost shipments and broken processes are captured and fixed, not dropped."],
     ["XXX","Universal Exporter","Reports, dashboards, and data exports in whatever format you need."],
     ["XXXI","Anti-Corruption Engine","Once built, a system can't be gamed, bypassed, or corrupted — by anyone."],
+    ["XXXII","Unified Economic Continuum","Connects nano to micro to macro economic layers into one signal."],
+    ["XXXIII","Enterprise Value Creation","Links operational decisions to financial outcomes and value."],
+    ["XXXIV","Market Trading and Position Sizing","Risk-aware execution with Kelly criterion and drawdown controls."],
   ];
   const grid = document.getElementById('pillar-grid');
   PILLARS.forEach(([num, name, desc]) => {

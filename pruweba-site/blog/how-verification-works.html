@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Verification Works — Pruweba</title>
+  <meta name="description" content="The Verification Oracle uses an explicit correctness condition to prove systems before they ship. Here is how that works in practice." />
+  <link rel="canonical" href="https://pruweba.com/blog/how-verification-works.html">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "How Verification Works",
+    "author": {
+      "@type": "Person",
+      "name": "Jan Michael Acibron"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Pruweba"
+    }
+  }
+  </script>
+</head>
+<body>
+  <nav class="nav">
+    <a class="nav-logo" href="/">Pruweba</a>
+    <div class="nav-links">
+      <a href="/#pillars">Framework</a>
+      <a href="/audit.html">Audit</a>
+      <a href="/blog/">Blog</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <article class="prose">
+      <h1>How Verification Works</h1>
+      <p class="text-sm text-[var(--manifest-dim)]">By Jan Michael Acibron · Pruweba</p>
+
+      <h2>The Oracle principle</h2>
+      <p>The Verification Oracle is the supreme arbiter in the truth group of the 34-pillar framework. Its mandate is to prove correctness before a system ships.</p>
+
+      <p>In practice, that means every proposed action or system change is tested against an explicit correctness condition. The canonical form is:</p>
+      <blockquote>Prove that the system's observed behavior matches the required behavior.</blockquote>
+
+      <p>When the verification target is mathematical or data-bound, this is expressed as a concrete condition such as residual norm equality. In operational systems, the same principle applies: there must be an explicit pass/fail test before deployment.</p>
+
+      <h2>Real examples</h2>
+      <ul>
+        <li><strong>Carrier invoice validation:</strong> compare invoice total against contract rate card; fail the run if variance exceeds threshold.</li>
+        <li><strong>Inventory sync:</strong> verify that the post-sync count equals the source of truth within allowable drift.</li>
+        <li><strong>Order routing:</strong> validate SCAC, lane eligibility, and service level before the order is released.</li>
+      </ul>
+
+      <h2>What happens when verification fails</h2>
+      <p>A failed verification does not silently skip. It routes to human review through the Dead Letter Handler, records the failure in the Evidence Ledger, and updates the Merkle chain. The system state remains consistent and recoverable.</p>
+
+      <h2>Why this matters</h2>
+      <p>Without verification, automation is just acceleration of whatever the underlying data and logic already allow. With verification, you have proof that the system did what it was supposed to do — and a record that survives audit, incident review, or client review.</p>
+
+      <h2>Next step</h2>
+      <p>If you want to see how verification applies to your systems, book the free 15-minute audit at <a href="/audit.html">pruweba.com/audit</a>.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p>Pruweba · Jan Michael Acibron · Solo engineering practice</p>
+    <p><a href="https://github.com/janacibron">GitHub</a> · <a href="https://linkedin.com/in/jan-michael-acibron">LinkedIn</a> · <a href="https://rankfixer.co">Visibility tooling</a></p>
+  </footer>
+</body>
+</html>

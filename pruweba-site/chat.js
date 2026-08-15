@@ -27,10 +27,13 @@ const PILLARS = [
   ['XXIX', 'Dead Letter Handler', 'Lost shipments and broken processes are captured and fixed, not dropped.'],
   ['XXX', 'Universal Exporter', 'Reports, dashboards, and data exports in whatever format you need.'],
   ['XXXI', 'Anti-Corruption Engine', 'Once built, a system cannot be gamed, bypassed, or corrupted — by anyone.'],
+  ['XXXII', 'Unified Economic Continuum', 'Connects nano to micro to macro economic layers into one signal.'],
+  ['XXXIII', 'Enterprise Value Creation', 'Links operational decisions to financial outcomes and value.'],
+  ['XXXIV', 'Market Trading and Position Sizing', 'Risk-aware execution with Kelly criterion and drawdown controls.'],
 ];
 
 const PILLAR_INDEX = PILLARS.reduce((acc, [num, name, desc]) => {
-  acc[num] = { name, desc };
+  acc[num.toLowerCase()] = { num, name, desc };
   acc[name.toLowerCase()] = { num, name, desc };
   acc[`${num} ${name}`.toLowerCase()] = { num, name, desc };
   acc[`${num}-${name}`.toLowerCase()] = { num, name, desc };
@@ -38,49 +41,17 @@ const PILLAR_INDEX = PILLARS.reduce((acc, [num, name, desc]) => {
 }, {});
 
 const GENERIC_KEYWORDS = {
-  pillars: 'Pillars XI through XXXI make up the Pruweba ops framework. Pick one and I will explain it.',
-  xi: PILLARS[0][2],
-  xii: PILLARS[1][2],
-  xiii: PILLARS[2][2],
-  xiv: PILLARS[3][2],
-  xv: PILLARS[4][2],
-  xvi: PILLARS[5][2],
-  xvii: PILLARS[6][2],
-  xviii: PILLARS[7][2],
-  xix: PILLARS[8][2],
-  xx: PILLARS[9][2],
-  xxi: PILLARS[10][2],
-  xxii: PILLARS[11][2],
-  xxiii: PILLARS[12][2],
-  xxiv: PILLARS[13][2],
-  xxv: PILLARS[14][2],
-  xxvi: PILLARS[15][2],
-  xxvii: PILLARS[16][2],
-  xxviii: PILLARS[17][2],
-  xxix: PILLARS[18][2],
-  xxx: PILLARS[19][2],
-  xxxi: PILLARS[20][2],
-  federation: PILLARS[0][2],
-  entropy: PILLARS[1][2],
-  ethics: PILLARS[2][2],
-  lineage: PILLARS[3][2],
-  capacity: PILLARS[4][2],
-  adversarial: PILLARS[5][2],
-  degrade: PILLARS[6][2],
-  knowledge: PILLARS[7][2],
-  temporal: PILLARS[8][2],
-  sovereign: PILLARS[9][2],
-  schema: PILLARS[10][2],
-  idempotency: PILLARS[11][2],
-  provenance: PILLARS[12][2],
-  cost: PILLARS[13][2],
-  explainability: PILLARS[14][2],
-  bias: PILLARS[15][2],
-  redundancy: PILLARS[16][2],
-  migrator: PILLARS[17][2],
-  'dead letter': PILLARS[18][2],
-  exporter: PILLARS[19][2],
-  'anti-corruption': PILLARS[20][2],
+  pillars: 'Pillars XI through XXXIV make up the Pruweba ops framework. Pick one and I will explain it.',
+  xi: PILLARS[0][2], xii: PILLARS[1][2], xiii: PILLARS[2][2], xiv: PILLARS[3][2], xv: PILLARS[4][2],
+  xvi: PILLARS[5][2], xvii: PILLARS[6][2], xviii: PILLARS[7][2], xix: PILLARS[8][2], xx: PILLARS[9][2],
+  xxi: PILLARS[10][2], xxii: PILLARS[11][2], xxiii: PILLARS[12][2], xxiv: PILLARS[13][2], xxv: PILLARS[14][2],
+  xxvi: PILLARS[15][2], xxvii: PILLARS[16][2], xxviii: PILLARS[17][2], xxix: PILLARS[18][2], xxx: PILLARS[19][2],
+  xxxi: PILLARS[20][2], xxxii: PILLARS[21][2], xxxiii: PILLARS[22][2], xxxiv: PILLARS[23][2],
+  federation: PILLARS[0][2], entropy: PILLARS[1][2], ethics: PILLARS[2][2], lineage: PILLARS[3][2], capacity: PILLARS[4][2],
+  adversarial: PILLARS[5][2], degrade: PILLARS[6][2], knowledge: PILLARS[7][2], temporal: PILLARS[8][2], sovereign: PILLARS[9][2],
+  schema: PILLARS[10][2], idempotency: PILLARS[11][2], provenance: PILLARS[12][2], cost: PILLARS[13][2], explainability: PILLARS[14][2],
+  bias: PILLARS[15][2], redundancy: PILLARS[16][2], migrator: PILLARS[17][2], 'dead letter': PILLARS[18][2], exporter: PILLARS[19][2], 'anti-corruption': PILLARS[20][2],
+  'unified economic': PILLARS[21][2], 'enterprise value': PILLARS[22][2], 'market trading': PILLARS[23][2], 'position sizing': PILLARS[23][2],
   audit: 'The free audit call is where I diagnose your bottleneck and map the right pillar mix. Book it from the site instead of asking me to improvise a custom scope.',
   pricing: 'Tier 1 is $1,500/mo, Tier 2 is $4,500–$8,000/project, Tier 3 is $6,000–$12,000/project. Exact scope is set during the audit call.',
   deploy: 'Most projects deploy in 3–6 weeks after scoping, depending on data access and integration complexity.',
@@ -90,9 +61,9 @@ const GENERIC_KEYWORDS = {
 function pickReply(message) {
   const text = message.toLowerCase().replace(/[^a-z0-9\s-]/g, ' ').replace(/\s+/g, ' ').trim();
 
-  // Exact pillar match first
-  for (const key of Object.keys(PILLAR_INDEX)) {
-    if (!key || key.length < 3) continue;
+  // Exact pillar match first, longest keys first to avoid substring shadowing
+  const sorted = Object.keys(PILLAR_INDEX).filter(k => k && k.length >= 3).sort((a, b) => b.length - a.length);
+  for (const key of sorted) {
     if (text === key || text.includes(` ${key} `) || text.startsWith(`${key} `) || text.endsWith(` ${key}`)) {
       const p = PILLAR_INDEX[key];
       return `${p.num} — ${p.name}: ${p.desc}`;
@@ -105,7 +76,7 @@ function pickReply(message) {
     if (text.includes(k)) return v;
   }
 
-  return 'I can explain any of the 31 pillars, or how the framework fits your ops. Ask about a specific pillar number or topic, or book the free audit to get a custom scope.';
+  return 'I can explain any of the 34 pillars, or how the framework fits your ops. Ask about a specific pillar number or topic, or book the free audit to get a custom scope.';
 }
 
 const hits = new Map();

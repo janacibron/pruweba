@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Proof — Pruweba</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root { color-scheme: dark; }
+  body { background:#14171B; color:#EDEFF1; font-family:'IBM Plex Sans', system-ui, sans-serif; }
+  .mono { font-family:'IBM Plex Mono', ui-monospace, monospace; }
+  .panel { background:#1B1F25; border:1px solid #363C46; border-radius:.5rem; }
+  .btn-primary { background:#F2A93B; color:#14171B; font-family:'IBM Plex Mono', monospace; font-weight:600; }
+  .btn-primary:hover { background:#ffbf5c; }
+  .btn-ghost { border:1px solid #363C46; color:#EDEFF1; font-family:'IBM Plex Mono', monospace; }
+  .btn-ghost:hover { border-color:#4FD1C5; color:#4FD1C5; }
+  .divider { border-top:1px solid #363C46; }
+  a:focus-visible, button:focus-visible { outline:2px solid #4FD1C5; outline-offset:2px; }
+  .ledger-line{white-space:pre; opacity:0; animation:fadeIn .4s ease forwards;}
+  @keyframes fadeIn{to{opacity:1;}}
+  @media (prefers-reduced-motion: reduce){ .ledger-line{animation:none; opacity:1;} }
+</style>
+</head>
+<body class="antialiased min-h-screen">
+
+<header class="sticky top-0 z-40 backdrop-blur bg-[#14171B]/85 divider">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/" class="mono font-semibold tracking-tight text-[#EDEFF1]">PRUWEBA <span class="text-[#9BA3AE] font-normal">/ opsstack</span></a>
+    <nav class="hidden md:flex items-center gap-8 mono text-xs uppercase tracking-widest text-[#9BA3AE]">
+      <a href="/" class="hover:text-[#4FD1C5]">Home</a>
+      <a href="/#pillars" class="hover:text-[#4FD1C5]">Framework</a>
+      <a href="/#audit" class="hover:text-[#4FD1C5]">Audit</a>
+    </nav>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-6 py-16">
+  <div class="max-w-3xl">
+    <p class="mono text-xs text-[#9BA3AE] mb-3">[PROOF]</p>
+    <h1 class="mono text-3xl md:text-4xl font-semibold leading-tight mb-3">Proof of Work</h1>
+    <p class="text-[#9BA3AE] mb-8">Verified evidence of deployed systems, audit seals, and operational outcomes.</p>
+
+    <section class="panel p-6 md:p-8 mb-6">
+      <p class="mono text-[10px] uppercase tracking-widest text-[#9BA3AE] mb-3">Representative output</p>
+      <div class="panel p-5 mono text-[13px] leading-relaxed overflow-hidden">
+        <div class="flex items-center justify-between mb-3">
+          <span class="mono text-[11px] text-[#9BA3AE]">reconciliation_run.log</span>
+          <span class="mono text-[11px] text-[#4FD1C5]">● live pipeline</span>
+        </div>
+        <div class="space-y-1">
+          <div class="ledger-line" style="animation-delay:.1s">[INIT] Loading 31 Pillars... <span class="text-[#4FD1C5]">ALL 31 ACTIVE</span></div>
+          <div class="ledger-line" style="animation-delay:.5s">[INGEST] XI FederationEngine parsing 4 invoices, 3 BOLs</div>
+          <div class="ledger-line" style="animation-delay:.9s">[VALIDATE] XXI SchemaValidator checking SCAC + zip codes</div>
+          <div class="ledger-line text-[#F2A93B]" style="animation-delay:1.3s">[ALERT] XXIX DeadLetterHandler: invoice_004.txt missing SCAC → human review</div>
+          <div class="ledger-line" style="animation-delay:1.7s">[MATCH] XXII IdempotencyGuard: duplicate BOL_REF dropped</div>
+          <div class="ledger-line text-[#E2574C]" style="animation-delay:2.1s">[FLAG] XXV ExplainabilityEngine: carrier overcharging by $1,336.00 vs contract rate</div>
+          <div class="ledger-line" style="animation-delay:2.5s">[AUDIT] XIV LineageNotary hashing decisions to ledger</div>
+          <div class="ledger-line text-[#4FD1C5]" style="animation-delay:2.9s">[GOVERNANCE] APPROVE_DEPLOY · risk: low</div>
+        </div>
+        <p class="mono text-[11px] text-[#9BA3AE] mt-4 pt-3 divider">representative output from a live run</p>
+      </div>
+    </section>
+
+    <section class="panel p-6 md:p-8 mb-6">
+      <p class="mono text-[10px] uppercase tracking-widest text-[#9BA3AE] mb-4">Verified artifacts</p>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <a href="https://rankfixer.co" target="_blank" rel="noreferrer" class="panel p-5 block hover:border-[#4FD1C5]/60 transition">
+          <p class="mono text-[11px] text-[#9BA3AE] mb-2">Tier 1 · Visibility Engineering</p>
+          <p class="mono text-sm font-semibold text-[#4FD1C5] mb-2">RankFixer →</p>
+          <p class="text-xs text-[#9BA3AE]">Live SaaS auditing AI-search visibility. Proves working web apps are shipped and ranked.</p>
+        </a>
+        <div class="panel p-5">
+          <p class="mono text-[11px] text-[#9BA3AE] mb-2">Tier 2/3 · Automation + Reconciliation</p>
+          <p class="mono text-sm font-semibold text-[#4FD1C5] mb-2">Client systems →</p>
+          <p class="text-xs text-[#9BA3AE]">Deployed systems in the client portal are governed by the 31-pillar stack and merkle-sealed.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel p-6 md:p-8">
+      <p class="mono text-[10px] uppercase tracking-widest text-[#9BA3AE] mb-3">Governance record</p>
+      <div class="space-y-3">
+        <div class="flex items-start justify-between gap-4 panel px-4 py-3">
+          <div>
+            <p class="mono text-xs text-[#EDEFF1]">XIV LineageNotary</p>
+            <p class="mono text-[11px] text-[#9BA3AE]">Hashes every shipment, decision, and cost change.</p>
+          </div>
+          <span class="mono text-[11px] text-[#4FD1C5]">Active</span>
+        </div>
+        <div class="flex items-start justify-between gap-4 panel px-4 py-3">
+          <div>
+            <p class="mono text-xs text-[#EDEFF1]">XXII IdempotencyGuard</p>
+            <p class="mono text-[11px] text-[#9BA3AE]">Prevents duplicate shipments and double-billed freight.</p>
+          </div>
+          <span class="mono text-[11px] text-[#4FD1C5]">Active</span>
+        </div>
+        <div class="flex items-start justify-between gap-4 panel px-4 py-3">
+          <div>
+            <p class="mono text-xs text-[#EDEFF1]">XXV ExplainabilityEngine</p>
+            <p class="mono text-[11px] text-[#9BA3AE]">Every flag includes source data and rule source.</p>
+          </div>
+          <span class="mono text-[11px] text-[#4FD1C5]">Active</span>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="divider">
+  <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between items-center gap-3 mono text-[11px] text-[#9BA3AE]">
+    <span>Jan — Solo Founder, Pruweba. Built with Python, shipped from a D:\ drive.</span>
+    <span>No agency overhead. No junior team. Just execution.</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const qs = new URLSearchParams(location.search);
+  if (qs.get('mode') === 'client') {
+    const el = document.createElement('div');
+    el.className = 'max-w-6xl mx-auto px-6 py-4';
+    el.innerHTML = '<div class="panel px-4 py-3 mono text-xs text-[#9BA3AE]">Client view: sealed artifacts only. Full proof available on request.</div>';
+    document.body.insertBefore(el, document.body.firstChild.nextSibling);
+  }
+})();
+</script>
+</body>
+</html>

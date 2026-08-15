@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pruweba — Book Your Free Ops Audit</title>
+<meta name="description" content="Book a free 15-minute ops audit with Pruweba. Fixed-price visibility, automation, and predictive reconciliation for DTC logistics." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --graphite:#14171B;
+    --graphite-panel:#1B1F25;
+    --steel:#2A2F37;
+    --steel-line:#363C46;
+    --manifest:#EDEFF1;
+    --manifest-dim:#9BA3AE;
+    --amber:#F2A93B;
+    --cyan:#4FD1C5;
+    --red:#E2574C;
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--graphite);
+    color:var(--manifest);
+    font-family:'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  }
+  .font-mono-brand{font-family:'IBM Plex Mono', ui-monospace, monospace;}
+  .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:.7rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--manifest-dim);
+  }
+  .panel{
+    background:var(--graphite-panel);
+    border:1px solid var(--steel-line);
+    border-radius:.5rem;
+  }
+  .btn-primary{
+    background:var(--amber);
+    color:var(--graphite);
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+  }
+  .btn-primary:hover{background:#ffbf5c;}
+  .btn-ghost{
+    border:1px solid var(--steel-line);
+    color:var(--manifest);
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .btn-ghost:hover{border-color:var(--cyan); color:var(--cyan);}
+  .divider{border-top:1px solid var(--steel-line);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--cyan); outline-offset:2px;}
+  .field{background:var(--steel); border:1px solid var(--steel-line); color:var(--manifest);}
+</style>
+</head>
+<body class="antialiased">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://pruweba.com/#organization",
+  "name": "Pruweba",
+  "url": "https://pruweba.com",
+  "description": "E-commerce operations engineering for DTC brands — fixed-price automation, visibility engineering, and predictive reconciliation.",
+  "founder": {
+    "@id": "https://pruweba.com/#person"
+  },
+  "sameAs": [
+    "https://rankfixer.co",
+    "https://github.com/janacibron",
+    "https://linkedin.com/in/jan-michael-acibron"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://pruweba.com/#person",
+  "name": "Jan Michael Acibron",
+  "url": "https://pruweba.com",
+  "jobTitle": "Founder",
+  "worksFor": {
+    "@id": "https://pruweba.com/#organization"
+  },
+  "sameAs": [
+    "https://github.com/janacibron",
+    "https://linkedin.com/in/jan-michael-acibron"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://pruweba.com/#professionalservice",
+  "name": "Pruweba",
+  "url": "https://pruweba.com",
+  "description": "E-commerce operations engineering for DTC brands — fixed-price automation, visibility engineering, and predictive reconciliation.",
+  "founder": {
+    "@id": "https://pruweba.com/#person"
+  },
+  "parentOrganization": {
+    "@id": "https://pruweba.com/#organization"
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Remote",
+    "addressCountry": "US"
+  },
+  "sameAs": [
+    "https://rankfixer.co",
+    "https://github.com/janacibron",
+    "https://linkedin.com/in/jan-michael-acibron"
+  ],
+  "makesOffer": [
+    {
+      "@type": "Offer",
+      "name": "Visibility Engineering",
+      "description": "Tier 1: AI-search visibility and technical SEO/GE0 for e-commerce storefronts.",
+      "price": "1500",
+      "priceCurrency": "USD"
+    },
+    {
+      "@type": "Offer",
+      "name": "Automation Engineering",
+      "description": "Tier 2: WMS/TMS/Shopify workflow automation with validation, lineage, and anti-corruption controls.",
+      "price": "4500",
+      "priceCurrency": "USD"
+    },
+    {
+      "@type": "Offer",
+      "name": "Predictive Reconciliation",
+      "description": "Tier 3: Supplier and carrier reconciliation models built on your own operational data.",
+      "price": "6000",
+      "priceCurrency": "USD"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://pruweba.com"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Audit",
+      "item": "https://pruweba.com/audit"
+    }
+  ]
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/auth-callback.js"></script>
+
+<header class="sticky top-0 z-40 backdrop-blur bg-[var(--graphite)]/85 divider">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/" class="font-mono-brand font-semibold tracking-tight text-[var(--manifest)]">
+      PRUWEBA <span class="text-[var(--manifest-dim)] font-normal">/ opsstack</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 tag">
+      <a href="/#problem" class="hover:text-[var(--cyan)]">Problem</a>
+      <a href="/#tiers" class="hover:text-[var(--cyan)]">Tiers</a>
+      <a href="/#pillars" class="hover:text-[var(--cyan)]">Framework</a>
+      <a href="/#faq" class="hover:text-[var(--cyan)]">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<section class="max-w-6xl mx-auto px-6 pt-16 pb-20 md:pt-24 md:pb-28">
+  <div class="grid md:grid-cols-2 gap-12 items-start">
+    <div>
+      <p class="tag mb-4">[AUDIT]</p>
+      <h1 class="font-mono-brand font-semibold text-4xl md:text-5xl leading-[1.1] tracking-tight">
+        Free 15-minute ops audit.
+      </h1>
+      <p class="mt-6 text-lg text-[var(--manifest-dim)] max-w-md">
+        I'll diagnose your biggest bottleneck: SEO, manual workflow, or data blind spots. No pitch, just diagnosis and a fixed-price scope if there is a fit.
+      </p>
+      <ul class="mt-8 space-y-3 text-sm text-[var(--manifest-dim)]">
+        <li>• 15 minutes, scoped diagnosis</li>
+        <li>• Fixed-price options only — no retainers</li>
+        <li>• 90-day ROI target as the success condition</li>
+        <li>• If there is no fit, I'll say so directly</li>
+      </ul>
+    </div>
+
+    <form id="audit-form" class="panel p-6 space-y-4" action="/api/audit" method="POST">
+      <div>
+        <label class="block tag mb-2">Name</label>
+        <input name="name" type="text" required class="w-full field rounded px-3 py-2 text-sm" placeholder="Your name" />
+      </div>
+      <div>
+        <label class="block tag mb-2">Work email</label>
+        <input name="email" type="email" required class="w-full field rounded px-3 py-2 text-sm" placeholder="you@company.com" />
+      </div>
+      <div>
+        <label class="block tag mb-2">Biggest bottleneck right now</label>
+        <select name="bottleneck" class="w-full field rounded px-3 py-2 text-sm">
+          <option value="">Select one</option>
+          <option>SEO / AI visibility</option>
+          <option>Inventory sync errors</option>
+          <option>Order processing</option>
+          <option>Returns and reconciliation</option>
+          <option>Carrier / supplier overcharges</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div>
+        <label class="block tag mb-2">Current monthly revenue</label>
+        <input name="revenue" type="text" class="w-full field rounded px-3 py-2 text-sm" placeholder="Optional" />
+      </div>
+      <div>
+        <label class="block tag mb-2">Notes</label>
+        <textarea name="notes" rows="4" class="w-full field rounded px-3 py-2 text-sm" placeholder="Context that speeds up diagnosis..."></textarea>
+      </div>
+      <button type="submit" class="btn-primary w-full rounded px-4 py-3 text-sm">Request Audit</button>
+      <p class="tag">No spam. No sales team. Response within 1 business day.</p>
+      <p id="audit-confirm" class="tag text-[var(--cyan)] hidden">Received. I'll reply within 1 business day.</p>
+      <p class="mt-4 pt-4 divider text-center">
+        <span class="text-[var(--manifest-dim)]">Prefer chat? </span>
+        <a href="https://t.me/Iampruweba">Message me on Telegram @Iampruweba</a>
+      </p>
+    </form>
+  </div>
+</section>
+
+<footer class="divider">
+  <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between items-center gap-3 tag">
+    <span>Jan — Solo Founder, Pruweba. Built with Python, shipped from a D:\ drive.</span>
+    <a href="/" class="hover:text-[var(--cyan)]">Home</a>
+  </div>
+</footer>
+
+<script>
+  const form = document.getElementById('audit-form');
+  const confirmEl = document.getElementById('audit-confirm');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const payload = {
+      name: String(fd.get('name') || '').trim(),
+      email: String(fd.get('email') || '').trim(),
+      bottleneck: String(fd.get('bottleneck') || '').trim(),
+      revenue: String(fd.get('revenue') || '').trim(),
+      notes: String(fd.get('notes') || '').trim(),
+    };
+    confirmEl.textContent = 'Saving request…';
+    confirmEl.classList.remove('hidden');
+    try {
+      const res = await fetch('/api/audit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('save failed');
+    } catch (err) {
+      confirmEl.textContent = 'Something went wrong — try again.';
+      return;
+    }
+    confirmEl.textContent = 'Received. I'll reply within 1 business day.';
+    form.reset();
+  });
+</script>
+</body>
+</html>

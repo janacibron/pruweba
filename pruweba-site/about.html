@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About — Pruweba</title>
+<meta name="description" content="About Pruweba and Jan Michael Acibron: governance systems architecture, 34-pillar framework, and fixed-price e-commerce ops automation." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  :root{
+    --graphite:#14171B;
+    --graphite-panel:#1B1F25;
+    --steel:#2A2F37;
+    --steel-line:#363C46;
+    --manifest:#EDEFF1;
+    --manifest-dim:#9BA3AE;
+    --amber:#F2A93B;
+    --cyan:#4FD1C5;
+    --red:#E2574C;
+  }
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--graphite);
+    color:var(--manifest);
+    font-family:'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  }
+  .font-mono-brand{font-family:'IBM Plex Mono', ui-monospace, monospace;}
+  .tag{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:.7rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--manifest-dim);
+  }
+  .panel{
+    background:var(--graphite-panel);
+    border:1px solid var(--steel-line);
+    border-radius:.5rem;
+  }
+  .btn-primary{
+    background:var(--amber);
+    color:var(--graphite);
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+  }
+  .btn-primary:hover{background:#ffbf5c;}
+  .btn-ghost{
+    border:1px solid var(--steel-line);
+    color:var(--manifest);
+    font-family:'IBM Plex Mono', monospace;
+  }
+  .btn-ghost:hover{border-color:var(--cyan); color:var(--cyan);}
+  .divider{border-top:1px solid var(--steel-line);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--cyan); outline-offset:2px;}
+</style>
+</head>
+<body class="antialiased">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://pruweba.com/#person",
+  "name": "Jan Michael Acibron",
+  "url": "https://pruweba.com",
+  "jobTitle": "Governance Systems Architect",
+  "worksFor": {
+    "@id": "https://pruweba.com/#organization"
+  },
+  "sameAs": [
+    "https://github.com/janacibron",
+    "https://linkedin.com/in/jan-michael-acibron"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "mainEntity": {
+    "@id": "https://pruweba.com/#person"
+  },
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "xpath": [
+      "/html/body/section[1]/div/h1",
+      "/html/body/section[1]/div/p[1]"
+    ]
+  }
+}
+</script>
+
+<header class="sticky top-0 z-40 backdrop-blur bg-[var(--graphite)]/85 divider">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/" class="font-mono-brand font-semibold tracking-tight text-[var(--manifest)]">
+      PRUWEBA <span class="text-[var(--manifest-dim)] font-normal">/ opsstack</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 tag">
+      <a href="/#problem" class="hover:text-[var(--cyan)]">Problem</a>
+      <a href="/#tiers" class="hover:text-[var(--cyan)]">Tiers</a>
+      <a href="/#pillars" class="hover:text-[var(--cyan)]">Framework</a>
+      <a href="/#faq" class="hover:text-[var(--cyan)]">FAQ</a>
+      <a href="/about" class="hover:text-[var(--cyan)]">About</a>
+    </nav>
+  </div>
+</header>
+
+<section class="max-w-6xl mx-auto px-6 pt-16 pb-20 md:pt-24 md:pb-28">
+  <div class="grid md:grid-cols-2 gap-12 items-start">
+    <div>
+      <p class="tag mb-4">[ABOUT]</p>
+      <h1 class="font-mono-brand font-semibold text-4xl md:text-5xl leading-[1.1] tracking-tight">
+        Jan Michael Acibron — Governance Systems Architect
+      </h1>
+      <p class="mt-6 text-lg text-[var(--manifest-dim)] max-w-md">
+        16+ years in IT operations, automation, and QA. Builder of the 34-pillar governance framework, research engine, and job pipeline. Pruweba is the proof layer for governed automation.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="/audit" class="btn-primary px-6 py-3 rounded text-sm">Book Free Audit</a>
+        <a href="/#pillars" class="btn-ghost px-6 py-3 rounded text-sm">See the framework</a>
+      </div>
+    </div>
+    <div class="panel p-6">
+      <p class="tag mb-3">Public profiles</p>
+      <ul class="space-y-2 text-sm">
+        <li><a class="hover:text-[var(--cyan)]" href="https://github.com/janacibron">GitHub: rankfixer-ai</a></li>
+        <li><a class="hover:text-[var(--cyan)]" href="https://linkedin.com/in/jan-michael-acibron">LinkedIn: jan-michael-acibron</a></li>
+        <li><a class="hover:text-[var(--cyan)]" href="https://rankfixer.co">RankFixer</a></li>
+      </ul>
+      <p class="tag mt-4">Entity</p>
+      <p class="text-sm text-[var(--manifest-dim)]">Brand: Pruweba. Founder: Jan Michael Acibron. Model: solo engineering practice. Service: fixed-price e-commerce ops automation, visibility, and reconciliation.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="divider">
+  <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row justify-between items-center gap-3 tag">
+    <span>Jan — Solo Founder, Pruweba. Built with Python, shipped from a D:\ drive.</span>
+    <a href="/" class="hover:text-[var(--cyan)]">Home</a>
+  </div>
+</footer>
+</body>
+</html>

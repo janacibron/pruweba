@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title id="title">System — Pruweba Client Portal</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root { color-scheme: dark; }
+  body { background:#14171B; color:#EDEFF1; font-family:'IBM Plex Sans', system-ui, sans-serif; }
+  .mono { font-family:'IBM Plex Mono', ui-monospace, monospace; }
+  .panel { background:#1B1F25; border:1px solid #363C46; border-radius:.5rem; }
+  .btn-primary { background:#F2A93B; color:#14171B; font-family:'IBM Plex Mono', monospace; font-weight:600; }
+  .btn-primary:hover { background:#ffbf5c; }
+  .btn-ghost { border:1px solid #363C46; color:#EDEFF1; font-family:'IBM Plex Mono', monospace; }
+  .btn-ghost:hover { border-color:#4FD1C5; color:#4FD1C5; }
+  .divider { border-top:1px solid #363C46; }
+  a:focus-visible, button:focus-visible { outline:2px solid #4FD1C5; outline-offset:2px; }
+</style>
+</head>
+<body class="antialiased min-h-screen">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/auth.js"></script>
+
+<header class="sticky top-0 z-40 backdrop-blur bg-[#14171B]/85 divider">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/portal.html" class="mono font-semibold tracking-tight text-[#EDEFF1]">PRUWEBA <span class="text-[#9BA3AE] font-normal">/ portal</span></a>
+    <nav class="hidden md:flex items-center gap-8 mono text-xs uppercase tracking-widest text-[#9BA3AE]">
+      <a href="/diagnose/index.html" class="hover:text-[#4FD1C5]">Diagnose</a>
+      <a href="/dashboard/index.html" class="hover:text-[#4FD1C5]">Dashboard</a>
+      <a href="/" class="hover:text-[#4FD1C5]">Public Site</a>
+    </nav>
+    <button id="logoutBtn" class="btn-ghost text-xs px-4 py-2 rounded">Sign out</button>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-6 py-16">
+  <div id="missing" class="hidden max-w-2xl">
+    <p class="mono text-xs text-[#9BA3AE] mb-3">[SYSTEM]</p>
+    <h1 class="mono text-3xl md:text-4xl font-semibold leading-tight mb-4">System not found</h1>
+    <p class="text-[#9BA3AE] mb-8">Open a system from the dashboard or return to overview.</p>
+    <a href="/dashboard/index.html" class="btn-primary rounded px-6 py-3 text-sm">Back to dashboard</a>
+  </div>
+
+  <div id="system" class="max-w-4xl hidden">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+      <div>
+        <p id="tierLabel" class="mono text-xs text-[#9BA3AE] mb-3"></p>
+        <h1 id="name" class="mono text-3xl md:text-4xl font-semibold leading-tight"></h1>
+        <p id="summary" class="text-[#9BA3AE] mt-2"></p>
+      </div>
+      <div class="flex items-center gap-3">
+        <div id="seal" class="panel px-4 py-3 mono text-xs"></div>
+        <div class="panel px-4 py-3 mono text-xs">
+          <p class="text-[#9BA3AE]">Health</p>
+          <p id="health" class="text-lg font-semibold text-[#4FD1C5]"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 mb-8">
+      <section class="panel p-6 md:col-span-2">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="mono text-sm font-semibold">Phases</h2>
+          <span id="progress" class="mono text-[11px] text-[#9BA3AE]"></span>
+        </div>
+        <div id="phases" class="space-y-3"></div>
+      </section>
+
+      <section class="panel p-6">
+        <h2 class="mono text-sm font-semibold mb-4">Seal log</h2>
+        <div id="seals" class="space-y-2"></div>
+      </section>
+    </div>
+
+    <section class="panel p-6 mb-10">
+      <h2 class="mono text-sm font-semibold mb-4">Milestones</h2>
+      <div id="milestones" class="space-y-3"></div>
+    </section>
+
+    <div class="flex flex-col sm:flex-row gap-3">
+      <a href="/dashboard/index.html" class="btn-primary rounded px-6 py-3 text-sm text-center">Back to dashboard</a>
+      <a href="/diagnose/index.html" class="btn-ghost rounded px-6 py-3 text-sm text-center">New diagnosis</a>
+    </div>
+  </div>
+</main>
+
+<script>
+(function () {
+  const requireSession = PruwebaAuth.requireSession;
+  const session = requireSession('/login.html');
+  if (!session) return;
+
+  const logoutBtn = document.getElementById('logoutBtn');
+  logoutBtn.addEventListener('click', async () => {
+    logoutBtn.disabled = true;
+    try { await PruwebaAuth.signOut(); } catch {}
+  });
+
+  const systems = {
+    'sync-os': {
+      id: 'sync-os',
+      name: 'Sync OS',
+      summary: 'Inventory and order routing between Shopify and 3PL with dead-letter handling.',
+      tier: 'Automation Engineering',
+      health: 82,
+      seal: 'sealed',
+      updated: '2026-08-10',
+      next: 'Carrier rate card refresh',
+      progress: 64,
+      phases: [
+        { name: 'Ingestion', status: 'done', note: 'Shopify orders and 3PL inventory stream online.' },
+        { name: 'Validation', status: 'done', note: 'SCAC and zip checks pass in under 200ms per batch.' },
+        { name: 'Idempotency', status: 'active', note: 'Duplicate BOL suppression enabled; 3 false positives this week.' },
+        { name: 'Reconciliation', status: 'pending', note: 'Monthly variance review and carrier variance targets.' }
+      ],
+      milestones: [
+        { title: '3PL integration live', date: '2026-07-18', status: 'done' },
+        { title: 'Duplicate suppression deployed', date: '2026-08-02', status: 'done' },
+        { title: 'Rate card sync', date: '2026-08-14', status: 'pending' },
+        { title: 'Ops review', date: '2026-08-28', status: 'pending' }
+      ],
+      seals: [
+        { event: 'LineageNotary hash committed', at: '2026-08-10 09:14', actor: 'system' },
+        { event: 'IdempotencyGuard enabled', at: '2026-08-02 16:22', actor: 'jan@pruweba.com' }
+      ]
+    },
+    'freight-audit': {
+      id: 'freight-audit',
+      name: 'Freight Audit',
+      summary: 'Carrier invoice validation, SCAC checking, and overcharge recovery.',
+      tier: 'Predictive Reconciliation',
+      health: 74,
+      seal: 'pending',
+      updated: '2026-08-05',
+      next: 'Lineage audit for August BOL batch',
+      progress: 48,
+      phases: [
+        { name: 'Ingestion', status: 'done', note: 'Invoice and BOL ingestion normalized from 4 carriers.' },
+        { name: 'Validation', status: 'active', note: 'SCAC validation running; one carrier format mismatch remains.' },
+        { name: 'Idempotency', status: 'pending', note: 'Duplicate invoice detection not yet enabled.' },
+        { name: 'Reconciliation', status: 'pending', note: 'Monthly variance report template in progress.' }
+      ],
+      milestones: [
+        { title: 'Ingestion normalization', date: '2026-07-25', status: 'done' },
+        { title: 'SCAC rules', date: '2026-08-06', status: 'pending' },
+        { title: 'Duplicate detection', date: '2026-08-20', status: 'pending' },
+        { title: 'First sealed audit report', date: '2026-09-02', status: 'pending' }
+      ],
+      seals: [
+        { event: 'Ingestion schema finalized', at: '2026-07-25 11:08', actor: 'jan@pruweba.com' },
+        { event: 'Validation rules deployed', at: '2026-08-05 09:44', actor: 'system' }
+      ]
+    },
+    'visibility-stack': {
+      id: 'visibility-stack',
+      name: 'Visibility Stack',
+      summary: 'Schema, entities, and GEO rendering for AI search crawlers.',
+      tier: 'Visibility Engineering',
+      health: 91,
+      seal: 'sealed',
+      updated: '2026-08-12',
+      next: 'Quarterly GEO review',
+      progress: 78,
+      phases: [
+        { name: 'Crawl surface', status: 'done', note: 'Core pages render structured entities to crawler.' },
+        { name: 'Validation', status: 'done', note: 'Schema.org checks and entity graph validation pass.' },
+        { name: 'Idempotency', status: 'done', note: 'Canonical URLs and duplicate content suppression active.' },
+        { name: 'Reconciliation', status: 'active', note: 'Monthly review queue built; first run scheduled.' }
+      ],
+      milestones: [
+        { title: 'Entity graph live', date: '2026-06-30', status: 'done' },
+        { title: 'Schema validation pass', date: '2026-07-12', status: 'done' },
+        { title: 'Review automation', date: '2026-08-09', status: 'done' },
+        { title: 'Quarterly GEO review', date: '2026-11-01', status: 'pending' }
+      ],
+      seals: [
+        { event: 'Entity graph committed', at: '2026-06-30 08:33', actor: 'jan@pruweba.com' },
+        { event: 'Validation gate passed', at: '2026-07-12 17:55', actor: 'system' },
+        { event: 'Monthly review queue created', at: '2026-08-12 10:11', actor: 'jan@pruweba.com' }
+      ]
+    }
+  };
+
+  function renderSystem(id) {
+    const s = systems[id];
+    if (!s) {
+      document.getElementById('missing').classList.remove('hidden');
+      document.getElementById('system').classList.add('hidden');
+      return;
+    }
+
+    document.getElementById('missing').classList.add('hidden');
+    document.getElementById('system').classList.remove('hidden');
+    document.getElementById('title').textContent = s.name + ' — Pruweba Client Portal';
+    document.getElementById('name').textContent = s.name;
+    document.getElementById('summary').textContent = s.summary;
+    document.getElementById('tierLabel').textContent = s.tier;
+    document.getElementById('health').textContent = s.health + '%';
+    document.getElementById('progress').textContent = s.progress + '% complete';
+    document.getElementById('seal').innerHTML = s.seal === 'sealed'
+      ? '<p class="text-[#9BA3AE]">Seal</p><p class="text-[#4FD1C5]">Sealed</p>'
+      : '<p class="text-[#9BA3AE]">Seal</p><p class="text-[#F2A93B]">Pending review</p>';
+
+    const phasesEl = document.getElementById('phases');
+    phasesEl.innerHTML = '';
+    s.phases.forEach((p) => {
+      const dot = p.status === 'done' ? 'bg-[#4FD1C5]' : p.status === 'active' ? 'bg-[#F2A93B]' : 'bg-[#363C46]';
+      const label = p.status === 'done' ? 'Done' : p.status === 'active' ? 'Active' : 'Pending';
+      const row = document.createElement('div');
+      row.className = 'flex items-start gap-3';
+      row.innerHTML = `<span class="mt-2 w-2 h-2 rounded-full ${dot} shrink-0"></span><div><p class="mono text-xs text-[#EDEFF1]">${p.name} · ${label}</p><p class="text-xs text-[#9BA3AE] mt-1">${p.note}</p></div>`;
+      phasesEl.appendChild(row);
+    });
+
+    const milestonesEl = document.getElementById('milestones');
+    milestonesEl.innerHTML = '';
+    s.milestones.forEach((m) => {
+      const check = m.status === 'done' ? '<span class="text-[#4FD1C5]">✓</span>' : '<span class="text-[#9BA3AE]">○</span>';
+      const item = document.createElement('div');
+      item.className = 'flex items-center justify-between panel px-4 py-3';
+      item.innerHTML = `<div class="flex items-center gap-3"><span class="mono">${check}</span><div><p class="mono text-xs text-[#EDEFF1]">${m.title}</p><p class="mono text-[11px] text-[#9BA3AE]">${m.date}</p></div></div>`;
+      milestonesEl.appendChild(item);
+    });
+
+    const sealsEl = document.getElementById('seals');
+    sealsEl.innerHTML = '';
+    s.seals.forEach((seal) => {
+      const row = document.createElement('div');
+      row.className = 'space-y-1';
+      row.innerHTML = `<p class="mono text-[11px] text-[#EDEFF1]">${seal.event}</p><p class="mono text-[10px] text-[#9BA3AE]">${seal.at} · ${seal.actor}</p>`;
+      sealsEl.appendChild(row);
+    });
+  }
+
+  const params = new URLSearchParams(location.search);
+  const id = params.get('id');
+  renderSystem(id);
+})();
+</script>
+</body>
+</html>

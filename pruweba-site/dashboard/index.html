@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dashboard — Pruweba Client Portal</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root { color-scheme: dark; }
+  body { background:#14171B; color:#EDEFF1; font-family:'IBM Plex Sans', system-ui, sans-serif; }
+  .mono { font-family:'IBM Plex Mono', ui-monospace, monospace; }
+  .panel { background:#1B1F25; border:1px solid #363C46; border-radius:.5rem; }
+  .btn-primary { background:#F2A93B; color:#14171B; font-family:'IBM Plex Mono', monospace; font-weight:600; }
+  .btn-primary:hover { background:#ffbf5c; }
+  .btn-ghost { border:1px solid #363C46; color:#EDEFF1; font-family:'IBM Plex Mono', monospace; }
+  .btn-ghost:hover { border-color:#4FD1C5; color:#4FD1C5; }
+  .divider { border-top:1px solid #363C46; }
+  a:focus-visible, button:focus-visible { outline:2px solid #4FD1C5; outline-offset:2px; }
+</style>
+</head>
+<body class="antialiased min-h-screen">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/auth.js"></script>
+
+<header class="sticky top-0 z-40 backdrop-blur bg-[#14171B]/85 divider">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/portal.html" class="mono font-semibold tracking-tight text-[#EDEFF1]">PRUWEBA <span class="text-[#9BA3AE] font-normal">/ portal</span></a>
+    <nav class="hidden md:flex items-center gap-8 mono text-xs uppercase tracking-widest text-[#9BA3AE]">
+      <a href="/diagnose/index.html" class="hover:text-[#4FD1C5]">Diagnose</a>
+      <a href="/dashboard/index.html" class="text-[#4FD1C5]">Dashboard</a>
+      <a href="/" class="hover:text-[#4FD1C5]">Public Site</a>
+    </nav>
+    <button id="logoutBtn" class="btn-ghost text-xs px-4 py-2 rounded">Sign out</button>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-6 py-16">
+  <div class="flex items-end justify-between gap-4 mb-8">
+    <div>
+      <p class="mono text-xs text-[#9BA3AE] mb-3">[DASHBOARD]</p>
+      <h1 class="mono text-3xl md:text-4xl font-semibold leading-tight">Client systems</h1>
+      <p class="text-[#9BA3AE] mt-2">Overview of deployed systems, seal status, and next milestones.</p>
+    </div>
+    <a href="/diagnose/index.html" class="btn-primary rounded px-5 py-2.5 text-xs hidden sm:inline-block">New diagnosis</a>
+  </div>
+
+  <div id="systems" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+
+  <div id="empty" class="hidden panel p-10 text-center">
+    <p class="mono text-sm text-[#9BA3AE] mb-4">No systems yet. Run a diagnosis to generate a scoped pilot.</p>
+    <a href="/diagnose/index.html" class="btn-primary rounded px-6 py-3 text-sm">Run diagnosis</a>
+  </div>
+</main>
+
+<script>
+(function () {
+  const requireSession = PruwebaAuth.requireSession;
+  const session = requireSession('/login.html');
+  if (!session) return;
+
+  const logoutBtn = document.getElementById('logoutBtn');
+  logoutBtn.addEventListener('click', async () => {
+    logoutBtn.disabled = true;
+    try { await PruwebaAuth.signOut(); } catch {}
+  });
+
+  const systems = [
+    {
+      id: 'sync-os',
+      name: 'Sync OS',
+      summary: 'Inventory and order routing between Shopify and 3PL with dead-letter handling.',
+      tier: 'Automation Engineering',
+      health: 82,
+      seal: 'sealed',
+      updated: '2026-08-10',
+      next: 'Carrier rate card refresh',
+      progress: 64
+    },
+    {
+      id: 'freight-audit',
+      name: 'Freight Audit',
+      summary: 'Carrier invoice validation, SCAC checking, and overcharge recovery.',
+      tier: 'Predictive Reconciliation',
+      health: 74,
+      seal: 'pending',
+      updated: '2026-08-05',
+      next: 'Lineage audit for August BOL batch',
+      progress: 48
+    },
+    {
+      id: 'visibility-stack',
+      name: 'Visibility Stack',
+      summary: 'Schema, entities, and GEO rendering for AI search crawlers.',
+      tier: 'Visibility Engineering',
+      health: 91,
+      seal: 'sealed',
+      updated: '2026-08-12',
+      next: 'Quarterly GEO review',
+      progress: 78
+    }
+  ];
+
+  const statusLabel = (seal) => seal === 'sealed' ? '<span class="mono text-[11px] text-[#4FD1C5] border border-[#4FD1C5]/30 rounded px-2 py-1">Sealed</span>' : '<span class="mono text-[11px] text-[#F2A93B] border border-[#F2A93B]/30 rounded px-2 py-1">Pending review</span>';
+  const tierColor = (tier) => tier === 'Visibility Engineering' ? 'text-[#F2A93B]' : tier === 'Automation Engineering' ? 'text-[#4FD1C5]' : 'text-[#E2574C]';
+
+  const container = document.getElementById('systems');
+  systems.forEach((s) => {
+    const card = document.createElement('a');
+    card.href = '/dashboard/system.html?id=' + encodeURIComponent(s.id);
+    card.className = 'panel p-6 flex flex-col hover:border-[#4FD1C5]/60 transition block';
+    card.innerHTML = `
+      <div class="flex items-center justify-between mb-3">
+        <div>
+          <p class="mono text-[10px] uppercase tracking-widest text-[#9BA3AE]">${s.tier}</p>
+          <h3 class="mono text-base font-semibold mt-1">${s.name}</h3>
+        </div>
+        ${statusLabel(s.seal)}
+      </div>
+      <p class="text-sm text-[#9BA3AE] mb-6 flex-1">${s.summary}</p>
+      <div class="space-y-2">
+        <div class="flex items-center justify-between mono text-xs">
+          <span class="text-[#9BA3AE]">Health</span>
+          <span class="${tierColor(s.tier)}">${s.health}%</span>
+        </div>
+        <div class="h-1.5 bg-[#14171B] rounded overflow-hidden">
+          <div class="h-full bg-[#4FD1C5] rounded" style="width:${s.health}%"></div>
+        </div>
+        <div class="flex items-center justify-between mono text-[11px] pt-2 text-[#9BA3AE]">
+          <span>Next: ${s.next}</span>
+          <span>Updated ${s.updated}</span>
+        </div>
+      </div>
+      <div class="mt-4 pt-3 divider flex items-center justify-between mono text-[11px] text-[#9BA3AE]">
+        <span>${s.progress}% complete</span>
+        <span class="text-[#4FD1C5]">View system →</span>
+      </div>`;
+    container.appendChild(card);
+  });
+})();
+</script>
+</body>
+</html>

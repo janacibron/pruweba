@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What is Governed Automation? — Pruweba</title>
+  <meta name="description" content="Governed automation means every automated action is testable, recoverable, and traceable before it touches production. Here's what that means in practice." />
+  <link rel="canonical" href="https://pruweba.com/blog/what-is-governed-automation.html">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is governed automation?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Execution that is tested before deployment, recoverable when it fails, and traceable after the fact. Pruweba implements this through the 34-pillar framework."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How is this different from normal automation?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Normal automation focuses on throughput. Governed automation focuses on evidence: every action must pass verification, every failure must be recoverable, and every decision must have a provenance trail."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <nav class="nav">
+    <a class="nav-logo" href="/">Pruweba</a>
+    <div class="nav-links">
+      <a href="/#pillars">Framework</a>
+      <a href="/audit.html">Audit</a>
+      <a href="/blog/">Blog</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <article class="prose">
+      <h1>What is Governed Automation?</h1>
+      <p class="text-sm text-[var(--manifest-dim)]">By Jan Michael Acibron · Pruweba</p>
+
+      <h2>Definition</h2>
+      <p>Governed automation is execution with mandatory controls: verification before deployment, recovery paths when failures occur, and full traceability after the fact.</p>
+
+      <p>Most automation projects optimize for speed or volume. Governed automation optimizes for evidence: every automated action must be testable, every failure must be reversible, and every decision must have a provenance record.</p>
+
+      <h2>Why governance matters</h2>
+      <p>In e-commerce operations, an unverified automation can silently misroute orders, underpay carriers, or corrupt inventory counts. The damage often isn't visible until monthly reconciliation — at which point recovery is manual and expensive.</p>
+
+      <p>Governance doesn't mean bureaucracy. In the Pruweba framework, governance is enforced through concrete technical controls: schema validation, idempotency guards, lineage notarization, and anti-corruption locks.</p>
+
+      <h2>The 34-pillar implementation</h2>
+      <p>The framework is organized into six groups:</p>
+      <ul>
+        <li><strong>Federation</strong> — connects WMS, TMS, Shopify, email, and spreadsheets into one data layer</li>
+        <li><strong>Truth</strong> — verification oracle, evidence ledger, Merkle chain, provenance audit</li>
+        <li><strong>Research</strong> — prediction, exploration, knowledge capture</li>
+        <li><strong>Operations</strong> — mission scheduling, task orchestration, delivery, mutation gating</li>
+        <li><strong>Intelligence</strong> — confidence scoring, coupling analysis, planning, worker coordination</li>
+        <li><strong>Boundary</strong> — execution isolation, governance gates, recovery, sovereign registration</li>
+        <li><strong>Enterprise</strong> — continuum accounting, enterprise value, risk-aware trading</li>
+      </ul>
+
+      <p>See the live framework breakdown at <a href="/#pillars">pruweba.com/#pillars</a>.</p>
+
+      <h2>When to use governed automation</h2>
+      <p>Governed automation is appropriate when the cost of a silent failure exceeds the cost of verification. That includes:</p>
+      <ul>
+        <li>Carrier and supplier reconciliation</li>
+        <li>Inventory sync across WMS and storefronts</li>
+        <li>Order routing and fulfillment workflows</li>
+        <li>Any system that touches financial outcomes</li>
+      </ul>
+
+      <p>If you're not sure whether your current automations are governed, the fastest test is to ask: <em>Can you prove the last 100 automated actions were correct, and recover if 5 of them were wrong?</em> If the answer isn't immediate, you have a governance gap.</p>
+
+      <h2>Next step</h2>
+      <p>If you want to see how governed automation applies to your stack, book the free 15-minute audit at <a href="/audit.html">pruweba.com/audit</a>.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p>Pruweba · Jan Michael Acibron · Solo engineering practice</p>
+    <p><a href="https://github.com/janacibron">GitHub</a> · <a href="https://linkedin.com/in/jan-michael-acibron">LinkedIn</a> · <a href="https://rankfixer.co">Visibility tooling</a></p>
+  </footer>
+</body>
+</html>

@@ -1,7 +1,18 @@
 {
   "rewrites": [
     { "source": "/api/portal/sign", "destination": "/api/portal" },
+    { "source": "/api/chat", "destination": "/api/chat.js" },
+    { "source": "/api/track", "destination": "/api/track.js" },
+    { "source": "/api/audit", "destination": "/api/audit.js" },
+    { "source": "/api/config", "destination": "/api/config.py" },
     { "source": "/portal", "destination": "/portal.html" },
-    { "source": "/login", "destination": "/login.html" }
+    { "source": "/login", "destination": "/login.html" },
+    { "source": "/audit", "destination": "/audit.html" },
+    { "source": "/about", "destination": "/about.html" },
+    { "source": "/blog", "destination": "/blog/index.html" },
+    { "source": "/blog/what-is-governed-automation", "destination": "/blog/what-is-governed-automation.html" },
+    { "source": "/blog/34-pillar-framework", "destination": "/blog/34-pillar-framework.html" },
+    { "source": "/blog/how-verification-works", "destination": "/blog/how-verification-works.html" },
+    { "source": "/blog/finding-1336-carrier-overcharges", "destination": "/blog/finding-1336-carrier-overcharges.html" }
   ]
 }

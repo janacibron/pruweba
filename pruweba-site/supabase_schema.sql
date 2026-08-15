@@ -70,6 +70,19 @@ drop policy if exists project_milestones_read on public.project_milestones;
 create policy project_milestones_read
     on public.project_milestones for select to anon, authenticated using (true);
 
+create table if not exists public.audit_requests (
+    id            uuid primary key default gen_random_uuid(),
+    name          text not null,
+    email         text not null,
+    bottleneck    text not null,
+    revenue       text,
+    notes         text,
+    created_at    timestamptz not null default now()
+);
+
+create index if not exists audit_requests_created_at_idx
+    on public.audit_requests (created_at);
+
 -- Seed (already applied via tests/seed.py):
 --   insert into public.client_projects (client_name, problem_statement, current_phase)
 --   values ('Paydora_Payments', 'Payment reconciliation platform delivery', 1);

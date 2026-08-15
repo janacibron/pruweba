@@ -10,7 +10,6 @@ Run: .venv/Scripts/python.exe tests/live_auth_check.py
 
 import json
 import os
-import pathlib
 import sys
 import threading
 import urllib.error
@@ -18,16 +17,9 @@ import urllib.request
 import uuid
 from http.server import HTTPServer
 
-sys.stdout.reconfigure(encoding="utf-8")
-ROOT = pathlib.Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "api"))
-
-for line in (ROOT / ".env").read_text(encoding="utf-8").splitlines():
-    if "=" in line and not line.startswith("#"):
-        k, v = line.split("=", 1)
-        os.environ.setdefault(k.strip(), v.strip().strip('"'))
-
-from portal import PROJECTS, MILESTONES, _supabase, handler  # noqa: E402
+sys.path.insert(0, os.path.dirname(__file__))
+from _onboarding import MerkleSeal
+from portal import MILESTONES, PROJECTS, _supabase, handler
 
 CLIENT = "ZZ_Auth_Sandbox"
 OTHER = "ZZ_Auth_Sandbox_Other"
@@ -180,16 +172,29 @@ def main():
             assert call(f"/api/portal?client={CLIENT}", token=intruder_tok)[0] == 403
             print("[11] intruder still blocked after seal ✓")
 
+            # Chain must survive decomposition into rows and reassembly.
+            for n in PHASES[1:2]:
+                assert call("/api/portal/sign", token=owner_tok,
+                            data={"client": CLIENT, "milestone": n})[0] == 200
+            s7, b7 = call(f"/api/portal?client={CLIENT}", token=owner_tok)
+            proofs = b7["progress"]["proofs"]
+            prev = MerkleSeal.GENESIS
+            for pr in proofs:
+                assert pr["prev"] == prev, f"broken link at {pr['milestone']}"
+                prev = pr["hash"]
+            assert len(proofs) == 2 and b7["progress"]["chain_valid"], b7["progress"]
+            print("[12] chain linked + valid across DB reload (2 proofs) ✓")
+
             raw = sb.table(MILESTONES).select("name,client_signed,proof_hash").eq(
                 "project_id", pid).order("phase_id").execute().data
-            assert raw[0]["client_signed"] is True
-            assert raw[0]["proof_hash"] == b5["proof"]["hash"]
-            print("[12] DB row persisted + matches returned proof ✓")
+            assert [r["client_signed"] for r in raw] == [True, True, False], raw
+            assert [r["proof_hash"] for r in raw[:2]] == [p["hash"] for p in proofs], raw
+            print("[13] DB rows persisted + match returned proofs ✓")
         finally:
             srv.shutdown()
     finally:
         cleanup(sb, uids)
-        print("[13] sandbox + users removed")
+        print("[14] sandbox + users removed")
 
     print("LIVE_AUTH_OK")
 

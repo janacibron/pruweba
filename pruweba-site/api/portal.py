@@ -28,9 +28,9 @@ from http.server import BaseHTTPRequestHandler
 from urllib.parse import parse_qs, urlparse
 
 try:
-    from ._onboarding import ClientOnboarding, MerkleSeal, STATUS_DONE
+    from ._onboarding import STATUS_DONE, ClientOnboarding, MerkleSeal
 except ImportError:  # pragma: no cover - Vercel loads this as a top-level module
-    from _onboarding import ClientOnboarding, MerkleSeal, STATUS_DONE
+    from _onboarding import STATUS_DONE, ClientOnboarding, MerkleSeal
 
 PROJECTS = "client_projects"
 MILESTONES = "project_milestones"
@@ -84,7 +84,7 @@ def verify_user(token: str) -> str:
     """Verify a Supabase access token and return the caller's email."""
     try:
         res = _auth_client().auth.get_user(token)
-    except Exception as exc:  # noqa: BLE001 - supabase raises varied auth errors
+    except Exception as exc:
         raise AuthError(f"invalid or expired token: {type(exc).__name__}") from exc
 
     user = getattr(res, "user", None)
@@ -287,18 +287,18 @@ class handler(BaseHTTPRequestHandler):
         except AuthError:
             return None
 
-    def do_OPTIONS(self):  # noqa: N802
+    def do_OPTIONS(self):
         self._send(204, {})
 
-    def do_GET(self):  # noqa: N802
+    def do_GET(self):
         try:
             qs = parse_qs(urlparse(self.path).query)
             status, payload = handle_get((qs.get("client") or [""])[0], self._token())
-        except Exception as exc:  # noqa: BLE001
+        except Exception as exc:
             status, payload = 500, {"ok": False, "error": f"{type(exc).__name__}: {exc}"}
         self._send(status, payload)
 
-    def do_POST(self):  # noqa: N802
+    def do_POST(self):
         try:
             length = int(self.headers.get("Content-Length") or 0)
             raw = self.rfile.read(length) if length else b"{}"
@@ -310,6 +310,6 @@ class handler(BaseHTTPRequestHandler):
                 status, payload = handle_get(body.get("client", ""), token)
         except json.JSONDecodeError:
             status, payload = 400, {"ok": False, "error": "invalid JSON body"}
-        except Exception as exc:  # noqa: BLE001
+        except Exception as exc:
             status, payload = 500, {"ok": False, "error": f"{type(exc).__name__}: {exc}"}
         self._send(status, payload)

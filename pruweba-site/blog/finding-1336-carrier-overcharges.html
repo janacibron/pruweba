@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finding $1,336 in Carrier Overcharges — Pruweba</title>
+  <meta name="description" content="A documented reconciliation run showing how the 34-pillar framework detects carrier overcharges with explainable output." />
+  <link rel="canonical" href="https://pruweba.com/blog/finding-1336-carrier-overcharges.html">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Finding $1,336 in Carrier Overcharges",
+    "author": {
+      "@type": "Person",
+      "name": "Jan Michael Acibron"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Pruweba"
+    }
+  }
+  </script>
+</head>
+<body>
+  <nav class="nav">
+    <a class="nav-logo" href="/">Pruweba</a>
+    <div class="nav-links">
+      <a href="/#pillars">Framework</a>
+      <a href="/audit.html">Audit</a>
+      <a href="/blog/">Blog</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <article class="prose">
+      <h1>Finding $1,336 in Carrier Overcharges</h1>
+      <p class="text-sm text-[var(--manifest-dim)]">By Jan Michael Acibron · Pruweba</p>
+
+      <h2>What this is</h2>
+      <p>This is a representative output from a live reconciliation run in the Pruweba proof-of-work demo. It shows how the system processes real carrier invoices and flags a concrete variance against contract rates.</p>
+
+      <h2>The run</h2>
+      <p>The demo ingests multiple invoices and BOLs, validates document structure, checks for duplicates, and reconciles line items against expected rates. The output below is from the actual reconciliation panel on the homepage.</p>
+
+      <blockquote>[FLAG] XXV ExplainabilityEngine: carrier overcharging by $1,336.00 vs contract rate</blockquote>
+
+      <p>That flag is not a black-box alert. It is produced by the Explainability Engine with the specific variance, the contract rate, and the invoice source.</p>
+
+      <h2>Which pillars are involved</h2>
+      <ul>
+        <li><strong>XI FederationEngine</strong> — ingests invoices and BOLs from multiple sources</li>
+        <li><strong>XXI SchemaValidator</strong> — checks SCAC and document structure</li>
+        <li><strong>XXII IdempotencyGuard</strong> — drops duplicate BOL references</li>
+        <li><strong>XXV ExplainabilityEngine</strong> — produces the explainable variance flag</li>
+        <li><strong>XXIX DeadLetterHandler</strong> — routes incomplete documents to human review</li>
+        <li><strong>XIV LineageNotary</strong> — records the decision trail</li>
+      </ul>
+
+      <h2>Why this matters</h2>
+      <p>Carrier overcharges are common, repeatable, and usually small enough that manual review doesn't happen. A system that flags the exact variance, source document, and contract rate turns leakage into a recoverable event instead of background noise.</p>
+
+      <h2>Proof of work</h2>
+      <p>The same ledger panel is embedded in the live demo at <a href="/">pruweba.com</a>. If you want to see how this applies to your invoices, book the free 15-minute audit at <a href="/audit.html">pruweba.com/audit</a>.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p>Pruweba · Jan Michael Acibron · Solo engineering practice</p>
+    <p><a href="https://github.com/janacibron">GitHub</a> · <a href="https://linkedin.com/in/jan-michael-acibron">LinkedIn</a> · <a href="https://rankfixer.co">Visibility tooling</a></p>
+  </footer>
+</body>
+</html>

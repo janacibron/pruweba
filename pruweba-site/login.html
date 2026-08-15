@@ -71,5 +71,32 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="/auth.js"></script>
+
+<!-- VOICE CHAT WIDGET -->
+<div id="voice-chat-widget" style="display:none; position:fixed; inset:0; z-index:50; background:rgba(0,0,0,0.6);">
+  <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:min(960px, 92vw); height:min(720px, 82vh); border:1px solid #1c202b; border-radius:.5rem; overflow:hidden; background:#08090c;">
+    <div style="display:flex; justify-content:space-between; align-items:center; padding:10px 14px; border-bottom:1px solid #1c202b;">
+      <span class="mono text-sm" style="color:#e2e8f0;">Voice Assistant</span>
+      <button id="voice-chat-close" class="mono text-xs" style="background:transparent; border:1px solid #1c202b; color:#e2e8f0; padding:6px 10px; border-radius:.375rem; cursor:pointer;">Close</button>
+    </div>
+    <iframe id="voice-chat-frame" src="/portal.html" style="width:100%; height:calc(100% - 44px); border:none; background:#0f1115;"></iframe>
+  </div>
+</div>
+<button id="voice-chat-toggle" class="mono" style="position:fixed; bottom:18px; right:18px; z-index:40; background:#34d399; color:#08090c; border:none; padding:10px 14px; border-radius:.5rem; cursor:pointer; font-weight:600; box-shadow:0 6px 18px rgba(0,0,0,0.35);">Voice</button>
+<script>
+  (function(){
+    const toggle = document.getElementById('voice-chat-toggle');
+    const widget = document.getElementById('voice-chat-widget');
+    const close = document.getElementById('voice-chat-close');
+    const frame = document.getElementById('voice-chat-frame');
+    if (!toggle || !widget || !close || !frame) return;
+    const open = () => { widget.style.display = 'block'; };
+    const hide = () => { widget.style.display = 'none'; };
+    toggle.addEventListener('click', open);
+    close.addEventListener('click', hide);
+    widget.addEventListener('click', (e) => { if (e.target === widget) hide(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && widget.style.display !== 'none') hide(); });
+  })();
+</script>
 </body>
 </html>

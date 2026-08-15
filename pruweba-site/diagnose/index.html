@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Diagnose — Pruweba Client Portal</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root { color-scheme: dark; }
+  body { background:#14171B; color:#EDEFF1; font-family:'IBM Plex Sans', system-ui, sans-serif; }
+  .mono { font-family:'IBM Plex Mono', ui-monospace, monospace; }
+  .panel { background:#1B1F25; border:1px solid #363C46; border-radius:.5rem; }
+  .btn-primary { background:#F2A93B; color:#14171B; font-family:'IBM Plex Mono', monospace; font-weight:600; }
+  .btn-primary:hover { background:#ffbf5c; }
+  .btn-ghost { border:1px solid #363C46; color:#EDEFF1; font-family:'IBM Plex Mono', monospace; }
+  .btn-ghost:hover { border-color:#4FD1C5; color:#4FD1C5; }
+  .field { background:#14171B; border:1px solid #363C46; color:#EDEFF1; }
+  .field:focus { border-color:#4FD1C5; outline:none; }
+  .divider { border-top:1px solid #363C46; }
+  a:focus-visible, button:focus-visible { outline:2px solid #4FD1C5; outline-offset:2px; }
+</style>
+</head>
+<body class="antialiased min-h-screen">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/auth.js"></script>
+
+<header class="sticky top-0 z-40 backdrop-blur bg-[#14171B]/85 divider">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/portal.html" class="mono font-semibold tracking-tight text-[#EDEFF1]">PRUWEBA <span class="text-[#9BA3AE] font-normal">/ portal</span></a>
+    <nav class="hidden md:flex items-center gap-8 mono text-xs uppercase tracking-widest text-[#9BA3AE]">
+      <a href="/diagnose/index.html" class="text-[#4FD1C5]">Diagnose</a>
+      <a href="/dashboard/index.html" class="hover:text-[#4FD1C5]">Dashboard</a>
+      <a href="/" class="hover:text-[#4FD1C5]">Public Site</a>
+    </nav>
+    <button id="logoutBtn" class="btn-ghost text-xs px-4 py-2 rounded">Sign out</button>
+  </div>
+</header>
+
+<main class="max-w-6xl mx-auto px-6 py-16">
+  <div class="max-w-2xl">
+    <p class="mono text-xs text-[#9BA3AE] mb-3">[DIAGNOSE]</p>
+    <h1 class="mono text-3xl md:text-4xl font-semibold leading-tight mb-4">Operations diagnosis</h1>
+    <p class="text-[#9BA3AE] mb-8">Answer five quick questions about your current ops. I'll score risk areas and produce a fixed-scope fix plan.</p>
+
+    <form id="diagnoseForm" class="panel p-6 md:p-8 space-y-8" novalidate>
+      <div>
+        <label for="q1" class="mono text-xs text-[#9BA3AE] block mb-2">1. Monthly order volume</label>
+        <select id="q1" name="q1" required class="field mono w-full rounded px-3.5 py-3 text-sm">
+          <option value="" disabled selected>Select volume</option>
+          <option value="lt1k">&lt; 1,000</option>
+          <option value="1k-5k">1,000 – 5,000</option>
+          <option value="5k-20k">5,000 – 20,000</option>
+          <option value="20k+">20,000+</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="q2" class="mono text-xs text-[#9BA3AE] block mb-2">2. How do you sync inventory?</label>
+        <select id="q2" name="q2" required class="field mono w-full rounded px-3.5 py-3 text-sm">
+          <option value="" disabled selected>Select method</option>
+          <option value="native">Native platform integration</option>
+          <option value="manual">Manual CSV/email</option>
+          <option value="3pl_api">3PL API sync</option>
+          <option value="custom">Custom middleware</option>
+          <option value="none">No reliable sync</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="q3" class="mono text-xs text-[#9BA3AE] block mb-2">3. Do you audit carrier invoices?</label>
+        <select id="q3" name="q3" required class="field mono w-full rounded px-3.5 py-3 text-sm">
+          <option value="" disabled selected>Select approach</option>
+          <option value="auto">Automated / tooled</option>
+          <option value="spot">Spot-check only</option>
+          <option value="manual">Fully manual</option>
+          <option value="never">Never audited</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="q4" class="mono text-xs text-[#9BA3AE] block mb-2">4. Biggest manual bottleneck</label>
+        <select id="q4" name="q4" required class="field mono w-full rounded px-3.5 py-3 text-sm">
+          <option value="" disabled selected>Select bottleneck</option>
+          <option value="orders">Order processing / routing</option>
+          <option value="inventory">Inventory reconciliation</option>
+          <option value="invoices">Invoice / freight audit</option>
+          <option value="returns">Returns and reverse logistics</option>
+          <option value="reporting">Reporting and data exports</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="q5" class="mono text-xs text-[#9BA3AE] block mb-2">5. Monthly logistics & operations spend</label>
+        <select id="q5" name="q5" required class="field mono w-full rounded px-3.5 py-3 text-sm">
+          <option value="" disabled selected>Select spend</option>
+          <option value="lt5k">&lt; $5,000</option>
+          <option value="5k-20k">$5,000 – $20,000</option>
+          <option value="20k-100k">$20,000 – $100,000</option>
+          <option value="100k+">$100,000+</option>
+        </select>
+      </div>
+
+      <div id="alert" class="hidden rounded-md border px-4 py-3 mono text-xs"></div>
+
+      <div class="flex flex-col sm:flex-row gap-3 pt-2">
+        <button type="submit" class="btn-primary rounded px-6 py-3 text-sm w-full sm:w-auto">Run diagnosis</button>
+        <a href="/dashboard/index.html" class="btn-ghost rounded px-6 py-3 text-sm text-center w-full sm:w-auto">Open dashboard</a>
+      </div>
+    </form>
+  </div>
+</main>
+
+<script>
+(function () {
+  const requireSession = PruwebaAuth.requireSession;
+  const session = requireSession('/login.html');
+  if (!session) return;
+
+  const form = document.getElementById('diagnoseForm');
+  const alertEl = document.getElementById('alert');
+  const logoutBtn = document.getElementById('logoutBtn');
+
+  function notify(msg, kind) {
+    if (!msg) { alertEl.className = 'hidden'; alertEl.textContent = ''; return; }
+    const tone = kind === 'error' ? 'border-red-500/40 bg-red-500/10 text-red-300' : 'border-emerald-500/40 bg-emerald-500/10 text-emerald-300';
+    alertEl.className = 'rounded-md border px-4 py-3 mono text-xs ' + tone;
+    alertEl.textContent = msg;
+  }
+
+  function score(q) {
+    const v = q.value;
+    if (!v) return 0;
+    const map = {
+      q1: { lt1k: 2, '1k-5k': 3, '5k-20k': 4, '20k+': 5 },
+      q2: { native: 1, '3pl_api': 2, custom: 2, manual: 4, none: 5 },
+      q3: { auto: 1, spot: 3, manual: 4, never: 5 },
+      q4: { orders: 5, inventory: 4, invoices: 5, returns: 3, reporting: 2, other: 3 },
+      q5: { lt5k: 2, '5k-20k': 3, '20k-100k': 4, '100k+': 5 }
+    };
+    return map[q.name]?.[v] || 0;
+  }
+
+  function tier(total) {
+    if (total <= 7) return 'Stabilize';
+    if (total <= 12) return 'Automate';
+    return 'Transform';
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    notify('');
+
+    const inputs = [form.q1, form.q2, form.q3, form.q4, form.q5];
+    const missing = inputs.find((el) => !el.value);
+    if (missing) {
+      notify('Please answer all five questions.', 'error');
+      missing.focus();
+      return;
+    }
+
+    const answers = {};
+    inputs.forEach((el) => { answers[el.name] = el.value; });
+
+    const dims = [
+      { key: 'volume', label: 'Volume risk', score: score(form.q1), note: form.q1.value === '20k+' ? 'High throughput amplifies every failure mode.' : 'Volume risk is within manageable bounds.' },
+      { key: 'sync', label: 'Sync risk', score: score(form.q2), note: form.q2.value === 'none' ? 'No reliable sync is a critical exposure.' : 'Sync quality affects downstream accuracy.' },
+      { key: 'audit', label: 'Audit risk', score: score(form.q3), note: form.q3.value === 'never' ? 'Zero audit leaves carrier errors unpaid.' : 'Audit coverage determines leakage visibility.' },
+      { key: 'bottleneck', label: 'Bottleneck cost', score: score(form.q4), note: form.q4.value === 'orders' ? 'Ordering is the highest-velocity failure point.' : 'This bottleneck is measurable but not always visible.' },
+      { key: 'spend', label: 'Spend exposure', score: score(form.q5), note: form.q5.value === '100k+' ? 'Large spend magnifies every inefficiency.' : 'Spend exposure is still material enough to govern.' }
+    ];
+
+    const total = dims.reduce((s, d) => s + d.score, 0);
+    const diagnosis = {
+      submittedAt: new Date().toISOString(),
+      tier: tier(total),
+      total,
+      dims,
+      actions: [
+        'Scope a single pilot workflow with measurable KPIs.',
+        'Map current system handoffs and failure modes.',
+        'Implement idempotent ingestion with dead-letter tracking.',
+        'Add lineage hashing and monthly reconciliation review.'
+      ]
+    };
+
+    try {
+      localStorage.setItem('pruweba_diagnosis', JSON.stringify(diagnosis));
+      location.replace('/diagnose/result.html');
+    } catch (err) {
+      notify('Could not save diagnosis locally.', 'error');
+    }
+  });
+
+  logoutBtn.addEventListener('click', async () => {
+    logoutBtn.disabled = true;
+    try { await PruwebaAuth.signOut(); } catch {}
+  });
+})();
+</script>
+</body>
+</html>

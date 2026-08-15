@@ -6,9 +6,15 @@ import sys
 sys.stdout.reconfigure(encoding="utf-8")
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "api"))
 
-import portal  # noqa: E402
-from _onboarding import ClientOnboarding, MerkleSeal  # noqa: E402
-from portal import AuthError, ForbiddenError, bearer_token, handle_get, handle_sign  # noqa: E402
+import portal
+from _onboarding import ClientOnboarding, MerkleSeal
+from portal import (
+    AuthError,
+    ForbiddenError,
+    bearer_token,
+    handle_get,
+    handle_sign,
+)
 
 PHASES = [
     "Discovery & scoping",

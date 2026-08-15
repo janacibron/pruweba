@@ -36,12 +36,12 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
-    def do_OPTIONS(self):  # noqa: N802
+    def do_OPTIONS(self):
         self._send(204, {})
 
-    def do_GET(self):  # noqa: N802
+    def do_GET(self):
         try:
             status, payload = public_config()
-        except Exception as exc:  # noqa: BLE001
+        except Exception as exc:
             status, payload = 500, {"ok": False, "error": f"{type(exc).__name__}: {exc}"}
         self._send(status, payload)

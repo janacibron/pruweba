@@ -8,11 +8,14 @@
   },
   "scripts": {
     "dev": "vercel dev",
-    "test": "node --check portal.js && node --check chat.js && python tests/test_portal.py",
-    "test:live": "python -c \"import subprocess,sys,os;sys.exit(subprocess.call([os.path.join('.venv','Scripts','python.exe'),'tests/live_check.py']))\"",
-    "test:auth": "python -c \"import subprocess,sys,os;sys.exit(subprocess.call([os.path.join('.venv','Scripts','python.exe'),'tests/live_auth_check.py']))\""
+    "test": "node --check portal.js && node --check auth.js && node --check auth-callback.js && node --check chat.js && node --check api/chat.js && python tests/test_portal.py && node tests/api_test.cjs",
+    "test:auth": "python -c \"import subprocess,sys,os;sys.exit(subprocess.call([os.path.join('.venv','Scripts','python.exe'),'tests/live_auth_check.py']))\"",
+    "test:callback": "python -c \"import subprocess,sys,os;v=os.path.join('.venv','Scripts','python.exe');subprocess.check_call([v,'tests/_mint_tokens.py']);r=subprocess.call(['node','tests/callback_test.cjs'],shell=True);subprocess.call([v,'tests/_mint_tokens.py','cleanup']);sys.exit(r)\""
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.112.2"
+  },
+  "devDependencies": {
+    "jsdom": "^25.0.0"
   }
 }
